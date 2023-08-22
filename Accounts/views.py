@@ -8,7 +8,7 @@ from django.contrib.auth import login, logout, authenticate
 
 
 def Account(request):
-    return render(request, 'accounts/register.html')
+    return render(request, 'accountApp/register.html')
 
 
 def Regitration(request):
@@ -36,25 +36,33 @@ def Regitration(request):
     return redirect('accounts:accounts')
     
 
+def loginForm(request):
+    return render(request, 'accountApp/login.html')
+
 
 def User_login(request):
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
+        print(email)
+        print(password)
         user = authenticate(username=email, password=password)
         if user is not None:
             login(request, user)
-            if user.user_type == 'Admin':
-                return redirect('Admin_app:dashbord')
-            if user.user_type == 'Staff':
-                return redirect('Admin_app:dashbord')
-            if user.user_type == 'Customer':
-                messages.success(request, 'Loged In Success!')
-                return redirect('Home:home')
+            # if user.user_type == 'Admin':
+            #     return redirect('Admin_app:dashbord')
+            # if user.user_type == 'Staff':
+            #     return redirect('Admin_app:dashbord')
+            # if user.user_type == 'Customer':
+            #     messages.success(request, 'Loged In Success!')
+            #     return redirect('Home:home')
+            return redirect('homeApp:home')
         else:
             messages.error(request, 'Email or password not valid!')
-            return redirect('accounts:register')
-    return redirect('accounts:accounts')   
+            return redirect('accounts:login_form')
+    return redirect('homeAppp:home')
+    
+  
 
 def User_logout(request):
     logout(request)
