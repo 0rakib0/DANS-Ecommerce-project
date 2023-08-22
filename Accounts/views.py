@@ -70,8 +70,8 @@ def User_logout(request):
 
 
 def User_Profile(request):
-    user = request.user
-    profile = Profile.objects.get(user=user)
+    # user = request.user
+    # profile = Profile.objects.get(user=user)
     if request.method == 'POST':
         username = request.POST.get('username')
         fullname = request.POST.get('fullname')
@@ -108,9 +108,9 @@ def User_Profile(request):
         return redirect('accounts:profile')    
         
     context = {
-        'profile':profile,
+        # 'profile':profile,
     }
-    if request.user.user_type == 'Admin' or  request.user.user_type == 'Staff':
-        return render(request, 'accounts/admin_staff_profile.html', context)
-    else:
-        return render(request, 'accounts/profile.html', context)
+    # if request.user.user_type == 'Admin':
+    #     return render(request, 'accounts/admin_staff_profile.html', context)
+    # else:
+    return render(request, 'accountApp/profile.html', context)

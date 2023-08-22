@@ -42,7 +42,7 @@
               <a href="/" class="nav-link">Home</a>
             </li>
             <li class="nav-item">
-              <a href="product.html" class="nav-link">Shop</a>
+              <a href="{% url 'shopApp:products' %}" class="nav-link">Shop</a>
             </li>
             <li class="nav-item">
               <a href="#terms" class="nav-link">Terms</a>
@@ -101,54 +101,10 @@
       {% endblock body %}
 
       <!-- Contact -->
-      <section class="section contact">
-        <div class="row">
-          <div class="col">
-            <h2>EXCELLENT SUPPORT</h2>
-            <p>We love our customers and they can reach us any time
-              of day we will be at your service 24/7</p>
-            <a href class="btn btn-1">Contact</a>
-          </div>
-          <div class="col">
-            <form action>
-              <div>
-                <input type="email" placeholder="Email Address">
-                <a href>Send</a>
-              </div>
-            </form>
-          </div>
-        </div>
-      </section>
-
-      <!-- Footer -->
-      <footer class="footer">
-        <div class="row">
-          <div class="col d-flex">
-            <h4>INFORMATION</h4>
-            <a href>About us</a>
-            <a href>Contact Us</a>
-            <a href>Term & Conditions</a>
-            <a href>Shipping Guide</a>
-          </div>
-          <div class="col d-flex">
-            <h4>USEFUL LINK</h4>
-            <a href>Online Store</a>
-            <a href>Customer Services</a>
-            <a href>Promotion</a>
-            <a href>Top Brands</a>
-          </div>
-          <div class="col d-flex">
-            <span><i class='bx bxl-facebook-square'></i></span>
-            <span><i class='bx bxl-instagram-alt'></i></span>
-            <span><i class='bx bxl-github'></i></span>
-            <span><i class='bx bxl-twitter'></i></span>
-            <span><i class='bx bxl-pinterest'></i></span>
-          </div>
-        </div>
-      </footer>
+      {% include "includs/footer.html" %}
 
       <!-- PopUp -->
-      <div class="popup hide-popup">
+      <!-- <div class="popup hide-popup">
         <div class="popup-content">
           <div class="popup-close">
             <i class='bx bx-x'></i>
@@ -172,7 +128,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
     </body>
     <script
