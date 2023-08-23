@@ -21,15 +21,15 @@
 
     </style>
 </head>
-<body>
+<body class="bg-slate-100">
     <header>
         <div class="bg-primary-color ">
-            <div class="w-9/12 flex justify-stretch">
-                <div>
+            <div class="w-9/12 flex justify-between py-2  text-white">
+                <div class="pl-8">
                     <p>Order Online Or Call Us: (001) 2222-55555</p>
                 </div>
                 <div>
-                    <ul class="flex">
+                    <ul class="flex gap-4">
                         <li>About Us</li>
                         <li>FAQ</li>
                         <li>Contact</li>
@@ -54,8 +54,193 @@
             </div>
         </nav>
     </header>
-    <main>
+    <main class="w-9/12 mx-auto my-12">
+        <div class="p-6 flex gap-4">
+            <div class="bg-white p-6">
+                <img src="https://cdn-icons-png.flaticon.com/512/145/145971.png" class="rounded-full mx-auto" width="150px" alt="">
+                <p class="text-2xl py-2 ">Your Information</p>
+                <h4 class="">First Name: Rakibul</h4>
+                <h4>Last Name: Hasan</h4>
+                <h4>Email: example@gmail.com</h4>
+                <h4>Phone: +00801571140796</h4>
+                <h4>Country: Bangladesh</h4>
+            </div>
+            <div class="bg-white flex-1 p-4">
+                <div class="flex gap-12">
+                    <h3 id="edit-profile">Edit Profile</h3>
+                    <h3 id="order">Your Order</h3>
+                    <h3 class="wishlist">Your Wish List</h3>
+                    <h3 id="card">Your Card List</h3>
+                </div>
+                <div>
+                    <!-- Edit Profile Form -->
+                    <div class="" id="profileForm">
+                        <form action="" class="my-6">
+                            <div class="my-4">
+                                <label for="firs-name" class="">First Name:</label>
+                                <input class="rounded outline-none border p-1 border-primary-color ml-4 w-3/5" type="text">
+                            </div>
+                            <div class="my-4">
+                                <label for="firs-name" class="">First Name:</label>
+                                <input class="rounded outline-none border p-1 border-primary-color ml-4 w-3/5" type="text">
+                            </div>
+                            <div class="my-4">
+                                <label for="firs-name" class="">First Name:</label>
+                                <input class="rounded outline-none border p-1 border-primary-color ml-4 w-3/5" type="text">
+                            </div>
+                            <div class="my-4">
+                                <label for="firs-name" class="">First Name:</label>
+                                <input class="rounded outline-none border p-1 border-primary-color ml-4 w-3/5" type="text">
+                            </div>
+                        </form>
+                    </div>
+                    <!-- Order Table -->
+                    <div class="overflow-x-auto hidden" id="order-table">
+                        <table class="table text-center mt-6">
+                          <!-- head -->
+                          <thead>
+                            <tr>
+                              <th>#</th>
+                              <th>Name</th>
+                              <th>Job</th>
+                              <th>Favorite Color</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <!-- row 1 -->
+                            <tr>
+                              <th>1</th>
+                              <td>Cy Ganderton</td>
+                              <td>Quality Control Specialist</td>
+                              <td>Blue</td>
+                            </tr>
+                            <!-- row 2 -->
+                            <tr class="hover">
+                              <th>2</th>
+                              <td>Hart Hagerty</td>
+                              <td>Desktop Support Technician</td>
+                              <td>Purple</td>
+                            </tr>
+                            <!-- row 3 -->
+                            <tr>
+                              <th>3</th>
+                              <td>Brice Swyre</td>
+                              <td>Tax Accountant</td>
+                              <td>Red</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                    </div>
+                      <!-- WisList Table -->
+
+                    <div class="overflow-x-auto hidden" id="wishlist">
+                        <table class="table text-center mt-6">
+                          <!-- head -->
+                          <thead>
+                            <tr>
+                              <th>#</th>
+                              <th>Name</th>
+                              <th>Job</th>
+                              <th>Favorite Color</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <!-- row 1 -->
+                            <tr>
+                              <th>1</th>
+                              <td>Cy Ganderton</td>
+                              <td>Quality Control Specialist</td>
+                              <td>Blue</td>
+                            </tr>
+                            <!-- row 2 -->
+                            <tr class="hover">
+                              <th>2</th>
+                              <td>Hart Hagerty</td>
+                              <td>Desktop Support Technician</td>
+                              <td>Purple</td>
+                            </tr>
+                            <!-- row 3 -->
+                            <tr>
+                              <th>3</th>
+                              <td>Brice Swyre</td>
+                              <td>Tax Accountant</td>
+                              <td>Red</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                    </div>
+                    <!-- Cart List -->
+                    <div class="overflow-x-auto hidden">
+                        <table class="table text-center mt-6">
+                          <!-- head -->
+                          <thead>
+                            <tr>
+                              <th>#</th>
+                              <th>Name</th>
+                              <th>Job</th>
+                              <th>Favorite Color</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <!-- row 1 -->
+                            <tr>
+                              <th>1</th>
+                              <td>Cy Ganderton</td>
+                              <td>Quality Control Specialist</td>
+                              <td>Blue</td>
+                            </tr>
+                            <!-- row 2 -->
+                            <tr class="hover">
+                              <th>2</th>
+                              <td>Hart Hagerty</td>
+                              <td>Desktop Support Technician</td>
+                              <td>Purple</td>
+                            </tr>
+                            <!-- row 3 -->
+                            <tr>
+                              <th>3</th>
+                              <td>Brice Swyre</td>
+                              <td>Tax Accountant</td>
+                              <td>Red</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </main>
+    <script>
+        document.getElementById('edit-profile').addEventListener('click', function(){
+            const orderTable = document.getElementById('order-table')
+            orderTable.classList.add('hidden')
+            const colorChange = document.getElementById('edit-profile')
+            colorChange.style.borderBottom = '1px solid #6cbe02';
+            const border2 = document.getElementById('order')
+            border2.style.borderBottom = '0';
+            const profileForm = document.getElementById('profileForm')
+
+            if (profileForm.classList.value == 'hidden'){
+                profileForm.classList.remove('hidden')
+            }
+        })
+
+        document.getElementById('order').addEventListener('click', function(){
+            const orderTable = document.getElementById('order-table')
+            const profileForm = document.getElementById('profileForm')
+            profileForm.classList.add('hidden')
+            const colorChange = document.getElementById('edit-profile')
+            colorChange.style.borderBottom = '0';
+            const border2 = document.getElementById('order')
+            border2.style.borderBottom = '1px solid #6cbe02';
+
+            if (orderTable.classList.value.includes('hidden')){
+                orderTable.classList.remove('hidden')
+            }
+            
+        })
+
+    </script>
 </body>
 </html>
