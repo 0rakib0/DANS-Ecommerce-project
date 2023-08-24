@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body %}
+
+<div class="container cart">
+  <div style="color:#6cbe02;font-size:20px;margin-bottom:10px;">
+    {% include 'includs/msg.html' %}
+  </div>
+    <table>
+      <tr>
+        <th>Product</th>
+        <th>Price</th>
+        <th>Stock Status</th>
+        <th>Action</th>
+      </tr>
+      {% for i in wish_List %}
+        <tr>
+          <td>
+            <div class="cart-info">
+              <img src="/media/{{i.product.image}}" alt="" />
+              <div>
+                <p style="margin-top: 20px;">{{i.product.product_name}}</p>
+                <a href="{% url 'shopApp:removewishlist' id=i.id %}" class="mt-4">remove</a>
+              </div>
+            </div>
+          </td>
+          {% if i.product.dic_price == 0 %}
+            <td>{{i.product.main_price}}&#2547</td>
+          {% else %}
+          <td>{{i.product.dic_price}}&#2547</td>
+          {% endif %}
+          {% if i.product.product_quintity > 0 %}
+          <td>In Stock</td>
+          {% else %}
+          <td>Out Of Stock</td>
+          {% endif %}
+          <td>
+              <a href="#" style="background-color: #6cbe02;padding:10px;color:white;">Add To Card</a>
+          </td>
+        </tr>
+      {% endfor %}
+      </table>
+      <a href="{% url 'homeApp:home' %}" class="checkout btn">Continue Shoping</a>
+    </div>
+  </div>
+
+{% endblock %}

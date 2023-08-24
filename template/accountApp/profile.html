@@ -49,6 +49,7 @@
                         <li class="hover:text-green-600 text-xl"><a href="#">Shop</a></li>
                         <li class="hover:text-green-600 text-xl"><a href="#">About</a></li>
                         <li class="hover:text-green-600 text-xl"><a href="#">Contact</a></li>
+                        <a href="{% url 'accounts:logout' %}" class="bg-primary-color px-4 py-1 rounded text-white ">Logout</a>
                     </ul>
                 </div>
             </div>
@@ -71,6 +72,7 @@
                     <h3 id="order">Your Order</h3>
                     <h3 class="wishlist">Your Wish List</h3>
                     <h3 id="card">Your Card List</h3>
+                    
                 </div>
                 <div>
                     <!-- Edit Profile Form -->

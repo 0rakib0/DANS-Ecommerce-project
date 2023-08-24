@@ -31,7 +31,7 @@ def Regitration(request):
             )
             user.save()
             messages.success(request, 'Your Account Successfylly Created!')
-            return redirect('accounts:accounts')
+            return redirect('accounts:login_form')
  
     return redirect('accounts:accounts')
     
@@ -66,7 +66,7 @@ def User_login(request):
 
 def User_logout(request):
     logout(request)
-    return redirect('Home:home')
+    return redirect('homeApp:home')
 
 
 def User_Profile(request):

@@ -62,10 +62,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
     
         # Hash the password before saving the object
-    def save(self, *args, **kwargs):
-            if self.password and not self.password.startswith('bcrypt_sha256$'):
-                self.password = make_password(self.password)
-            super().save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #         if self.password and not self.password.startswith('bcrypt_sha256$'):
+    #             self.password = make_password(self.password)
+    #         super().save(*args, **kwargs)
     
     
     

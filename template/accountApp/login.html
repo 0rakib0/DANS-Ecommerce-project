@@ -4,14 +4,16 @@
 {% block body %}
 <div class="container">
     <div class="login-form">
+      <div style="color:#6cbe02;font-size:20px;margin-bottom:10px;">
+        {% include 'includs/msg.html' %}
+      </div>
       <form action="{% url 'accounts:login' %}" method="POST">
         {% csrf_token %}
         <h1>Login</h1>
         <p>
-          Already have an account? Login in or
-          <a href="signup.html">Sign Up</a>
+          Do not have an account?
+          <a href="{% url 'accounts:registration' %}">Sign Up</a>
         </p>
-
         <label for="email">Email</label>
         <input type="text" placeholder="Enter Email" name="email" required />
 
