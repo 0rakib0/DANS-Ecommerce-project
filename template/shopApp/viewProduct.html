@@ -18,22 +18,29 @@
             <div class="price"><del>{{singProduct.main_price}}&#2547;</del></div>
         {% endif %}
         <form>
-          <div>
-            <select>
-              <option value="Select Size" selected disabled>
-                Select Size
-              </option>
-              <option value="1">32</option>
-              <option value="2">42</option>
-              <option value="3">52</option>
-              <option value="4">62</option>
-            </select>
-            <span><i class="bx bx-chevron-down"></i></span>
+          <div style="display: flex;flex-direction: column;">
+            <div>
+              <label for="">Select Size</label><br>
+              <select name="" id="" style="margin-top: 10px;">
+                <option value="" >--SELECT SIZE--</option>
+                <option value="">Hello1</option>
+                <option value="">Hello1</option>
+              </select>
+            </div>
+            <div style="margin-top: 10px;">
+              <label for="">Select Color</label><br>
+              <select name="" id="" style="margin-top: 10px;">
+                <option value="" >--SELECT SIZE--</option>
+                <option value="">Hello1</option>
+                <option value="">Hello1</option>
+              </select>
+            </div>
+            <div style="margin-top: 10px;">
+              <label for="">Quintity: </label><br>
+              <input type="number" value="1" style="width: 10%;height:35px;padding:10px;">
+            <a href="cart.html" style="padding: 8px 5%;background-color:#6cbe02;border-radius:8px;color:white;">Add To Cart</a>
+            </div>
           </div>
-        </form>
-        <form class="form">
-          <input type="text" placeholder="1" />
-          <a href="cart.html" class="addCart">Add To Cart</a>
         </form>
         <h3>Product Detail</h3>
         <p>

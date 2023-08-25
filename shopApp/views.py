@@ -5,18 +5,20 @@ from django.contrib import messages
 # Create your views here.
 
 def Products(request):
+    selectedProduct = None
     products = Product.objects.all()
     category = Category.objects.all()
     if request.method == 'GET':
-        searchValue = request.GET.get('search-item')
-        print(searchValue)
-    if request.method == 'GET':
         CategoryId = request.GET.get('category')
-        print(CategoryId)
+    if CategoryId != '--SELET CATEGORY--':   
+        selectedProduct = Product.objects.filter(product_category=CategoryId)
+    
+
     
     context = {
         'products':products,
-        'category':category
+        'category':category,
+        'selectedProduct':selectedProduct
     }
     return render(request, 'shopApp/shop.html', context)
 

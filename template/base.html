@@ -38,6 +38,14 @@
           <a href="/" class="logo"><h1>Dans</h1></a>
 
           <ul class="nav-list d-flex">
+            <li>
+              <div>
+                <form action="{% url 'homeApp:home' %}"          method="GET">
+                  <input style="height: 40px;padding:10px;border:1px solid #6cbe02; outline:none" type="text" name="search" placeholder="Search your favourit Item">
+                  <button id="carsh-btn" style="background-color: #6cbe02;height:40px;padding:0 10px;color:white;border:0;margin-left:-5px;"><i class="bx bx-search"></i></button>
+                </form>
+              </div>
+            </li>
             <li class="nav-item">
               <a href="/" class="nav-link">Home</a>
             </li>
@@ -63,9 +71,7 @@
                 <i class="bx bx-user"></i>
               </a>
             {% endif %}
-              <div class="icon">
-                <i class="bx bx-search"></i>
-              </div>
+              
               <div class="icon">
                 <i class="bx bx-heart"></i>
                 <span class="d-flex">0</span>
@@ -88,9 +94,6 @@
               </a>
             {% endif %}
             <div class="icon">
-              <i class="bx bx-search"></i>
-            </div>
-            <div class="icon">
               <a href="{% url 'shopApp:wishList' %}"><i class="bx bx-heart"></i></a>
               <span class="d-flex">0</span>
             </div>
@@ -107,7 +110,7 @@
       </div>
     </header>
     <!-- Categories Section -->
-
+      
       {% block body %}
         
       {% endblock body %}
@@ -143,8 +146,10 @@
       </div> -->
 
     </body>
+
     <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/glide.min.js"></script>
+      src="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/glide.min.js">    
+    </script>
     <script src="{% static 'website_assets/js/slider.js' %}"></script>
     <script src="{% static 'website_assets/js/index.js' %}"></script>
   </html>

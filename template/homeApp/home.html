@@ -1,27 +1,142 @@
 {% extends "base.html" %}
 {% load static %}
 {% block body %}
+
+
+{% if searResultTitle %}
+<section class="section new-arrival">
+  <div class="product-center">
+    {% for i in searResultTitle %}
+        <div class="product-item">
+          <div class="overlay">
+            <a href="{% url 'shopApp:productDetails' slug=i.slug %}" class="product-thumb">
+              <img src="/media/{{i.image}}" alt="" />
+            </a>
+            <span class="discount">40%</span>
+          </div>
+          <div class="product-info">
+            <span>{{i.product_code}}</span>
+            <a href="{% url 'shopApp:productDetails' slug=i.slug %}">{{i.roduct_title}}</a>
+            {% if i.dic_price == 0 %}
+            <h4 class="mr-4">{{i.main_price}}&#2547;</h4>
+            {% else %}
+            <div class="" style="display: flex; justify-content:center; gap:4rem;">
+              <h4 class="mr-4"> <del>{{i.main_price}}</del>&#2547;</h4>
+              <h4>{{i.dic_price}}&#2547;</h4>
+            </div>
+            {% endif %}
+          </div>
+          <ul class="icons">
+            <li><a href="{% url 'shopApp:addWishList' slug=i.slug %}"><i class="bx bx-heart"></i></a></li>
+            <li><i class="bx bx-search"></i></li>
+            <li><i class="bx bx-cart"></i></li>
+          </ul>
+        </div>
+      {% endfor %}
+  </div>
+</section>
+
+{% elif productName%}
+<section class="section new-arrival">
+  <div class="product-center">
+    {% for i in productName %}
+        <div class="product-item">
+          <div class="overlay">
+            <a href="{% url 'shopApp:productDetails' slug=i.slug %}" class="product-thumb">
+              <img src="/media/{{i.image}}" alt="" />
+            </a>
+            <span class="discount">40%</span>
+          </div>
+          <div class="product-info">
+            <span>{{i.product_code}}</span>
+            <a href="{% url 'shopApp:productDetails' slug=i.slug %}">{{i.roduct_title}}</a>
+            {% if i.dic_price == 0 %}
+            <h4 class="mr-4">{{i.main_price}}&#2547;</h4>
+            {% else %}
+            <div class="" style="display: flex; justify-content:center; gap:4rem;">
+              <h4 class="mr-4"> <del>{{i.main_price}}</del>&#2547;</h4>
+              <h4>{{i.dic_price}}&#2547;</h4>
+            </div>
+            {% endif %}
+          </div>
+          <ul class="icons">
+            <li><a href="{% url 'shopApp:addWishList' slug=i.slug %}"><i class="bx bx-heart"></i></a></li>
+            <li><i class="bx bx-search"></i></li>
+            <li><i class="bx bx-cart"></i></li>
+          </ul>
+        </div>
+      {% endfor %}
+  </div>
+</section>
+{% elif productCode%}
+<section class="section new-arrival">
+  <div class="product-center">
+    {% for i in productCode %}
+        <div class="product-item">
+          <div class="overlay">
+            <a href="{% url 'shopApp:productDetails' slug=i.slug %}" class="product-thumb">
+              <img src="/media/{{i.image}}" alt="" />
+            </a>
+            <span class="discount">40%</span>
+          </div>
+          <div class="product-info">
+            <span>{{i.product_code}}</span>
+            <a href="{% url 'shopApp:productDetails' slug=i.slug %}">{{i.roduct_title}}</a>
+            {% if i.dic_price == 0 %}
+            <h4 class="mr-4">{{i.main_price}}&#2547;</h4>
+            {% else %}
+            <div class="" style="display: flex; justify-content:center; gap:4rem;">
+              <h4 class="mr-4"> <del>{{i.main_price}}</del>&#2547;</h4>
+              <h4>{{i.dic_price}}&#2547;</h4>
+            </div>
+            {% endif %}
+          </div>
+          <ul class="icons">
+            <li><a href="{% url 'shopApp:addWishList' slug=i.slug %}"><i class="bx bx-heart"></i></a></li>
+            <li><i class="bx bx-search"></i></li>
+            <li><i class="bx bx-cart"></i></li>
+          </ul>
+        </div>
+      {% endfor %}
+  </div>
+</section>
+{% else %}
+
 <section class="section category">
-    <div class="cat-center">
-      <div class="cat">
-        <img src="{% static 'website_assets/images/cat3.jpg' %}" alt />
-        <div>
-          <p>WOMEN'S WEAR</p>
-        </div>
-      </div>
-      <div class="cat">
-        <img src="{% static 'website_assets/images/cat2.jpg' %}" alt />
-        <div>
-          <p>ACCESSORIES</p>
-        </div>
-      </div>
-      <div class="cat">
-        <img src="{% static 'website_assets/images/cat1.jpg' %}" alt />
-        <div>
-          <p>MEN'S WEAR</p>
-        </div>
+  <div class="hero">
+    <div class="glide" id="glide_1">
+      <div class="glide__track" data-glide-el="track">
+        <ul class="glide__slides">
+          <li class="glide__slide">
+            <div class="center">
+              <div class="left">
+                <span class="">New Inspiration 2020</span>
+                <h1 class="">NEW COLLECTION!</h1>
+                <p>Trending from men's and women's  style collection</p>
+                <a href="#" class="hero-btn">SHOP NOW</a>
+              </div>
+              <div class="right">
+                  <img class="img1" src="{% static 'website_assets/images/hero-1.png' %}" alt="">
+              </div>
+            </div>
+          </li>
+          <li class="glide__slide">
+            <div class="center">
+              <div class="left">
+                <span>New Inspiration 2020</span>
+                <h1>THE PERFECT MATCH!</h1>
+                <p>Trending from men's and women's  style collection</p>
+                <a href="#" class="hero-btn">SHOP NOW</a>
+              </div>
+              <div class="right">
+                <img class="img2" src="{% static 'website_assets/images/hero-2.png' %}" alt="">
+              </div>
+            </div>
+          </li>
+        </ul>
       </div>
     </div>
+  </div>
   </section>
 
   <!-- New Arrivals -->
@@ -271,4 +386,5 @@
         </ul>
       </div>
     </section>
+  {% endif %}
 {% endblock%}
