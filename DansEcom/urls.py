@@ -8,6 +8,7 @@ urlpatterns = [
     path('', include('homeApp.urls')),
     path('', include('Accounts.urls')),
     path('', include('shopApp.urls')),
+    path('', include('adminApp.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
