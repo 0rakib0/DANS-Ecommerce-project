@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body %}
+
+
+<div class="container cart">
+    <table>
+      <tr>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Subtotal</th>
+      </tr>
+      {% for i in carts %}
+      <tr>
+        <td>
+          <div class="cart-info">
+            <img src="/media/{{i.item.image}}" alt="" />
+            <div>
+              <p>{{i.item.product_name}}</p>
+              {% if i.item.dic_price == 0 %}
+                <span>Price: {{i.item.main_price}}&#2547;</span> <br />
+              {% else %}
+                <span>Price: {{i.item.dic_price}}&#2547;</span> <br />
+              {% endif %}
+              <a href="{% url 'orderApp:remove_card' slug=i.item.slug %}">remove</a>
+            </div>
+          </div>
+        </td>
+        <td>
+            <span><a href="{% url 'orderApp:quantity_decrease' slug=i.item.slug %}">-</a></span><input type="number" value="{{i.quantity}}" min="1" /><span><a href="{% url 'orderApp:quantity_increase' slug=i.item.slug %}">+</a></span>
+        </td>
+        <td>{{i.get_total}}&#2547;</td>
+      </tr>
+      {% endfor %}
+    </table>
+    <div class="total-price">
+      <table>
+        <tr>
+          <td>Subtotal</td>
+          <td>{{order.getTotals}}&#2547;</td>
+        </tr>
+        <tr>
+          <td>Total</td>
+          <td>{{order.getTotals}}&#2547;</td>
+        </tr>
+      </table>
+      <a href="#" class="checkout btn">Proceed To Checkout</a>
+    </div>
+  </div>
+
+
+{% endblock %}

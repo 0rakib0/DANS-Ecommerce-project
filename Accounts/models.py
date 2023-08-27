@@ -1,5 +1,4 @@
 from django.db import models
-from django.contrib.auth.hashers import make_password
 
 # >>>>>>>>>>>>>>>>> for cerate superuser by email<<<<<<<<<<<<<<<<<
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
@@ -62,9 +61,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
     
         # Hash the password before saving the object
-    # def save(self, *args, **kwargs):
-    #         if self.password and not self.password.startswith('bcrypt_sha256$'):
-    #             self.password = make_password(self.password)
+    # def save(self, *args, **kwargs):           
+    #         self.password = make_password(self.password)
     #         super().save(*args, **kwargs)
     
     
