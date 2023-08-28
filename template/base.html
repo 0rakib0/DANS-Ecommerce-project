@@ -18,6 +18,62 @@
     <!-- Custom StyleSheet -->
     <link rel="stylesheet" href="{% static 'website_assets/css/styles.css' %}" />
     <title>ecommerce Website</title>
+    <style>
+      .checkout-container{
+        width: 90%;
+        margin: 10rem auto;
+      }
+      .input-fields{
+        display: flex;
+        width: 60%;
+        margin-bottom: 16px;
+      }
+      .checkout-container h2{
+        padding-left: 6rem;
+        font-weight: 400;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+      }
+      .fields{
+        padding: 8px 4rem;
+      }
+      .fields label{
+        font-size:21px;
+      }
+      .fields input{
+        width: 200%;
+        height: 40px;
+        padding: 12px;
+        margin-top: 10px;
+      }
+      .fields button{
+        padding: 15px;
+        background-color: #6cbe02;
+        border: 0;
+        color: aliceblue;
+        border-radius: 5px;
+      }
+      .address-container{
+        display: flex;
+        justify-content: space-around;
+      }
+      .total-fields{
+        width: 30%;
+        background-color: aquamarine;
+      }
+      /* media quiry for medium device */
+      @media only screen and (max-width: 799px) {
+        .fields input{
+          width: 100%;
+        }
+      }
+      /* media quiry for small device */
+      @media only screen and (max-width: 400px) {
+        .address-container{
+         background-color: #6cbe02;
+        }
+      }
+    </style>
   </head>
   <body>
     <!-- Header -->
@@ -40,9 +96,14 @@
           <ul class="nav-list d-flex">
             <li>
               <div>
-                <form action="{% url 'homeApp:home' %}"          method="GET">
-                  <input style="height: 40px;padding:10px;border:1px solid #6cbe02; outline:none" type="text" name="search" placeholder="Search your favourit Item">
-                  <button id="carsh-btn" style="background-color: #6cbe02;height:40px;padding:0 10px;color:white;border:0;margin-left:-5px;"><i class="bx bx-search"></i></button>
+                <form action="{% url 'homeApp:home' %}" method="GET">
+                  <input
+                    style="height: 40px;padding:10px;border:1px solid #6cbe02; outline:none"
+                    type="text" name="search"
+                    placeholder="Search your favourit Item">
+                  <button id="carsh-btn"
+                    style="background-color: #6cbe02;height:40px;padding:0 10px;color:white;border:0;margin-left:-5px;"><i
+                      class="bx bx-search"></i></button>
                 </form>
               </div>
             </li>
@@ -66,12 +127,12 @@
               <a href="{% url 'accounts:profile' %}" class="icon">
                 <i class="bx bx-user"></i>
               </a>
-            {% else %}
+              {% else %}
               <a href="{% url 'accounts:login_form' %}" class="icon">
                 <i class="bx bx-user"></i>
               </a>
-            {% endif %}
-              
+              {% endif %}
+
               <div class="icon">
                 <i class="bx bx-heart"></i>
                 <span class="d-flex">0</span>
@@ -85,13 +146,13 @@
 
           <div class="icons d-flex">
             {% if user.is_authenticated %}
-              <a href="{% url 'accounts:profile' %}" class="icon">
-                <i class="bx bx-user"></i>
-              </a>
+            <a href="{% url 'accounts:profile' %}" class="icon">
+              <i class="bx bx-user"></i>
+            </a>
             {% else %}
-              <a href="{% url 'accounts:login_form' %}" class="icon">
-                <i class="bx bx-user"></i>
-              </a>
+            <a href="{% url 'accounts:login_form' %}" class="icon">
+              <i class="bx bx-user"></i>
+            </a>
             {% endif %}
             <div class="icon">
               <a href="{% url 'shopApp:wishList' %}"><i class="bx bx-heart"></i></a>
@@ -110,16 +171,16 @@
       </div>
     </header>
     <!-- Categories Section -->
-      
-      {% block body %}
-        
-      {% endblock body %}
 
-      <!-- Contact -->
-      {% include "includs/footer.html" %}
+    {% block body %}
 
-      <!-- PopUp -->
-      <!-- <div class="popup hide-popup">
+    {% endblock body %}
+
+    <!-- Contact -->
+    {% include "includs/footer.html" %}
+
+    <!-- PopUp -->
+    <!-- <div class="popup hide-popup">
         <div class="popup-content">
           <div class="popup-close">
             <i class='bx bx-x'></i>
@@ -145,11 +206,11 @@
         </div>
       </div> -->
 
-    </body>
+  </body>
 
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/glide.min.js">    
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/glide.min.js">    
     </script>
-    <script src="{% static 'website_assets/js/slider.js' %}"></script>
-    <script src="{% static 'website_assets/js/index.js' %}"></script>
-  </html>
+  <script src="{% static 'website_assets/js/slider.js' %}"></script>
+  <script src="{% static 'website_assets/js/index.js' %}"></script>
+</html>
