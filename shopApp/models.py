@@ -21,6 +21,14 @@ class Category(models.Model):
         
         return super(Category, self).save(*args, **kwargs)
 
+
+class ColorImage(models.Model):
+    image = models.ImageField(upload_to='product-color-image')
+    
+    def __str__(self) -> str:
+        return self.image.name
+    
+
 class Product(models.Model):
     product_name         = models.CharField(max_length=260)
     product_code         = models.CharField(max_length=20)
@@ -28,7 +36,8 @@ class Product(models.Model):
     product_category     = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='category')
     roduct_title         = models.CharField(max_length=260)
     image                = models.ImageField(upload_to='products')
-    product_color_image  = models.ImageField(upload_to='product-color-image')
+    product_color_image  = models.ManyToManyField(ColorImage, blank=True, null=True, related_name="colorImg")
+    color_name           = models.CharField(max_length=160)
     slug                 = models.SlugField(unique=True, null=True, blank=True)
     details              = models.TextField()
     main_price           = models.IntegerField()
@@ -48,6 +57,9 @@ class Product(models.Model):
             self.slug = slugify(self.roduct_title)+'-'+ str(uuid.uuid4())
         
         return super(Product, self).save(*args, **kwargs)
+    
+    
+
     
   
   

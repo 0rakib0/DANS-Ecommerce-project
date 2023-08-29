@@ -1,0 +1,87 @@
+{% extends "AdminDashbord/base.html" %}
+
+{% block body %}
+
+
+<section class="is-title-bar">
+    <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+      <ul>
+        <li>Admin</li>
+        <li>Produt List</li>
+      </ul>
+    </div>
+    <div style="text-align: center;font-size:25px;color:rgb(72, 98, 72)">{% include "includs/msg.html" %}</div>
+  </section>
+    <section class="section main-section">
+      <div class="card has-table">
+        <header class="card-header">
+          <p class="card-header-title">
+            Products
+          </p>
+          <a href="#" class="card-header-icon">
+            <span class="icon"><i class="mdi mdi-reload"></i></span>
+          </a>
+        </header>
+        <div class="card-content">
+          <table>
+            <thead>
+            <tr>
+              <th class="checkbox-cell">
+                <label class="checkbox">
+                  <input type="checkbox">
+                  <span class="check"></span>
+                </label>
+              </th>
+              <th class="image-cell"></th>
+              <th>Product Name</th>
+              <th>Product Code</th>
+              <th>Quantity</th>
+              <th>Regular Price</th>
+              <th>Discount Price</th>
+              <th>Category</th>
+              <th>Action</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for i in products %}
+            <tr>
+                <td class="checkbox-cell">
+                    <label class="checkbox">
+                    <input type="checkbox">
+                    <span class="check"></span>
+                    </label>
+                </td>
+                <td class="image-cell">
+                    <div class="image">
+                    <img src="/media/{{i.image}}" class="rounded-full">
+                    </div>
+                </td>
+                <td data-label="Name">{{i.product_name}}</td>
+                <td data-label="Company">{{i.product_code}}</td>
+                {% if i.product_quintity <= 5 %}
+                    <td data-label="City" style="color: white;background-color:rgb(230, 85, 85);text-align:center;">{{i.product_quintity}}</td>
+                {% else %}
+                    <td data-label="City" style="text-align:center;">{{i.product_quintity}}</td>
+                {% endif %}
+                <td data-label="City" style="text-align:center;">{{i.main_price}}&#2547</td>
+                <td data-label="City" style="text-align:center;">{{i.dic_price}}&#2547</td>
+                <td data-label="City">{{i.product_category.category_name}}</td>
+                <td class="actions-cell">
+                    <div class="buttons right nowrap">
+                    <button class="button small green --jb-modal"  data-target="sample-modal-2" type="button">
+                        <span class="icon"><i class="mdi mdi-eye"></i></span>
+                    </button>
+                    <a href="{% url 'adminApp:delete_product' slug=i.slug %}" class="button small red --jb-modal" data-target="sample-modal" type="button">
+                        <span class="icon"><i class="mdi mdi-trash-can"></i></span>
+                    </a>
+                    </div>
+                </td>
+            </tr> 
+            {% endfor %}           
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+{% endblock %}

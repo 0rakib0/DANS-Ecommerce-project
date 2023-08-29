@@ -28,12 +28,11 @@
               </select>
             </div>
             <div style="margin-top: 10px;">
-              <label for="">Select Color</label><br>
-              <select name="" id="" style="margin-top: 10px;">
-                <option value="" >--SELECT SIZE--</option>
-                <option value="">Hello1</option>
-                <option value="">Hello1</option>
-              </select>
+              <label for="">Available Color: {{singProduct.color_name}} </label><br><br>              
+              {% for color in singProduct.product_color_image.all %}
+              <img src="{{color.image.url}}" width="80px" ="Color Image">
+              {% endfor %} <br>
+              <input type="text" style="height: 30px;padding:10px;margin-top:5px;outline:#6cbe02" placeholder="write choosen color" required>
             </div>
             <div style="margin-top: 10px;">
               <label for="">Quintity: </label><br>
