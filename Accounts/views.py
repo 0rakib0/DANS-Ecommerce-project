@@ -49,13 +49,11 @@ def User_login(request):
         user = authenticate(username=email, password=password)
         if user is not None:
             login(request, user)
-            # if user.user_type == 'Admin':
-            #     return redirect('Admin_app:dashbord')
-            # if user.user_type == 'Staff':
-            #     return redirect('Admin_app:dashbord')
-            # if user.user_type == 'Customer':
-            #     messages.success(request, 'Loged In Success!')
-            #     return redirect('Home:home')
+            if user.user_type == 'Admin':
+                return redirect('adminApp:dashbord')
+            if user.user_type == 'Customer':
+                messages.success(request, 'Loged In Success!')
+                return redirect('Home:home')
             return redirect('homeApp:home')
         else:
             messages.error(request, 'Email or password not valid!')
@@ -70,8 +68,8 @@ def User_logout(request):
 
 
 def User_Profile(request):
-    # user = request.user
-    # profile = Profile.objects.get(user=user)
+    user = request.user
+    profile = Profile.objects.get(user=user)
     if request.method == 'POST':
         username = request.POST.get('username')
         fullname = request.POST.get('fullname')
@@ -81,13 +79,9 @@ def User_Profile(request):
         zip_code = request.POST.get('zip_code')
         country = request.POST.get('country')
         phone = request.POST.get('phone')
-        passsword1 = request.POST.get('password1')
-        passsword2 = request.POST.get('password2')
         profile = Profile.objects.get(user=user)
       
-        if passsword1 != passsword2:
-            messages.success(request, 'Password Not Match!')
-            return redirect('accounts:profile')
+    
         profile.username = username
         profile.full_name = fullname
         profile.address_1 = addresd1
@@ -97,20 +91,14 @@ def User_Profile(request):
         profile.zipcode = zip_code
         profile.country = country
         profile.phone = phone
-        
-        
         profile.save()
-        if passsword1:
-            user.set_password(passsword1)
-            user.save()
-            return redirect('accounts:logout')
         messages.success(request, 'Profile successfully updated!')
         return redirect('accounts:profile')    
         
     context = {
-        # 'profile':profile,
+        'profile':profile,
     }
-    # if request.user.user_type == 'Admin':
-    #     return render(request, 'accounts/admin_staff_profile.html', context)
-    # else:
-    return render(request, 'accountApp/profile.html', context)
+    if request.user.user_type == 'Admin':
+        return render(request, 'accountApp/admin_profile.html', context)
+    else:
+        return render(request, 'accountApp/profile.html', context)

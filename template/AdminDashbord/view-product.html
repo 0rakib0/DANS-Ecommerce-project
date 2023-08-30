@@ -69,9 +69,9 @@
                 <td data-label="City">{{i.product_category.category_name}}</td>
                 <td class="actions-cell">
                     <div class="buttons right nowrap">
-                    <button class="button small green --jb-modal"  data-target="sample-modal-2" type="button">
+                    <a href="{% url 'adminApp:update_product' slug=i.slug %}" class="button small green --jb-modal"  data-target="sample-modal-2" type="button">
                         <span class="icon"><i class="mdi mdi-eye"></i></span>
-                    </button>
+                    </a>
                     <a href="{% url 'adminApp:delete_product' slug=i.slug %}" class="button small red --jb-modal" data-target="sample-modal" type="button">
                         <span class="icon"><i class="mdi mdi-trash-can"></i></span>
                     </a>

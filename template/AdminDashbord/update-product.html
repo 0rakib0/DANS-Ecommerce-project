@@ -5,7 +5,7 @@
     <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
       <ul>
         <li>Admin</li>
-        <li>Add Product</li>
+        <li>Update Product</li>
       </ul>
     </div>
     <div style="text-align: center;font-size:25px;color:rgb(72, 98, 72)">{% include "includs/msg.html" %}</div>
@@ -15,7 +15,7 @@
     
     <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
       <h1 class="title">
-        Add Product
+        Update Product
       </h1>
     </div>
   </section>
@@ -30,7 +30,7 @@
               <div class="field-body">
                 <div class="field">
                   <div class="control">
-                    <input class="input" placeholder="product name" name="Product-name" type="text" required>
+                    <input class="input" name="product-name" value="{{product.product_name}}" type="text" required>
                   </div>
                 </div>
               </div>
@@ -39,7 +39,7 @@
             <div class="field">
                 <label class="label">Product Title</label>
                 <div class="control">
-                  <input class="input" name="product-title" placeholder="Product title" type="text" required>
+                  <input class="input" name="product-title" value="{{product.roduct_title}}" type="text" required>
                 </div>
               </div>
 
@@ -48,7 +48,7 @@
                 <div class="field-body">
                   <div class="field">
                     <div class="control">
-                      <input class="input" placeholder="Product code" name="product-code" type="text" required>
+                      <input class="input" value="{{product.product_code}}" name="product-code" type="text" required>
                     </div>
                   </div>
                 </div>
@@ -58,6 +58,7 @@
               <div class="control">
                 <div class="select">
                   <select name="categoryId">
+                    <option value="{{product.product_category.id}}">{{product.product_category.category_name}}</option>
                     {% for i in category %}
                     <option value="{{i.id}}">{{i.category_name}}</option>
                     {% endfor %}
@@ -68,19 +69,25 @@
             <div class="field">
                 <label class="label">Product Quantity</label>
                 <div class="control">
-                  <input class="input" value="1" name="quantity" type="number">
+                  <input class="input" value="{{product.product_quintity}}" name="quantity" type="number">
                 </div>
             </div>
             <div class="field">
                 <label class="label">Product Image</label>
+                <img src="/media/{{product.image}}" style="margin: 5px;" width="80px" alt="">
                 <div class="control">
-                  <input class="input" name="image" type="file" required>
+                  <input class="input" name="image" type="file">
                 </div>
             </div>
             <div class="field">
                 <label class="label">Product Color Image</label>
+                <div style="display: flex;margin:8px;">
+                    {% for color in product.product_color_image.all %}
+                        <img src="{{color.image.url}}" width="80px" alt="Color Image">
+                    {% endfor %}
+                </div>
                 <div class="control">
-                  <input class="input" name="color-image" type="file" multiple>
+                  <input class="input" name="color-image" type="file" readonly multiple>
                 </div>
             </div>
             <div class="field">
@@ -88,7 +95,7 @@
               <div class="field-body">
                 <div class="field">
                   <div class="control">
-                    <input class="input" name="color-name" placeholder="color1, color2, color3..." type="text" required>
+                    <input class="input" name="color-name" value="{{product.color_name}}" type="text" required>
                   </div>
                 </div>
               </div>
@@ -96,13 +103,13 @@
             <div class="field">
               <label class="label">Product Details</label>
               <div class="control">
-                <textarea class="textarea"  name="product-details" required></textarea>
+                <textarea class="textarea"  name="product-details" required>{{product.details}}</textarea>
               </div>
             </div>
             <div class="field">
                 <label class="label">Product Regular Price</label>
                 <div class="control">
-                  <input class="input" name="regular-price" type="number" required>
+                  <input class="input" value="{{product.main_price}}" name="regular-price" type="number" required>
                 </div>
             </div>
           <label class="label">Discount Available</label>
@@ -119,7 +126,7 @@
           <div class="field">
             <label class="label">Product Discount Price</label>
             <div class="control">
-              <input class="input" value="0" name="discount-price" type="number">
+              <input class="input" value="{{product.dic_price}}" name="discount-price" type="number">
            </div>
 
            <label class="label">Is New Arival</label>
@@ -139,7 +146,7 @@
             <div class="field grouped">
               <div class="control">
                 <button type="submit" class="button green">
-                  Add Product
+                  Update Product
                 </button>
               </div>
             </div>

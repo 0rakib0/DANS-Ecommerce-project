@@ -1,0 +1,198 @@
+{% extends "AdminDashbord/base.html" %}
+
+{% block body %}
+
+<section class="is-title-bar">
+    <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+      <ul>
+        <li>Admin</li>
+        <li>Profile</li>
+      </ul>
+    </div>
+    <div style="text-align: center;font-size:25px;color:rgb(72, 98, 72)">{% include "includs/msg.html" %}</div>
+  </section>
+  
+  <section class="is-hero-bar">
+    <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+      <h1 class="title">
+        Profile
+      </h1>
+    </div>
+  </section>
+  
+    <section class="section main-section">
+      <div class="grid grid-cols-1 gap-6 lg:grid-cols-2 mb-6">
+
+        <div class="card">
+            <header class="card-header">
+              <p class="card-header-title">
+                <span class="icon"><i class="mdi mdi-account"></i></span>
+                Profile
+              </p>
+            </header>
+            <div class="card-content" style="font-size: 25px;">
+              <div class="image w-48 h-48 mx-auto">
+                {% if user.profile.profile_pic %}
+                    <img src="/media/{{user.profile.profile_pic}}" alt="John Doe" class="rounded-full">
+                {% else %}
+                    <img src="https://www.kindpng.com/picc/m/252-2524695_dummy-profile-image-jpg-hd-png-download.png" alt="John Doe" class="rounded-full">
+                {% endif %}
+              </div>
+              <hr>
+              {% if user.profile.is_fully_filed == False %}
+                <h2 style="margin: 10px;color:red;text-align:center">Please complate your profile</h2>
+              {% endif %}
+              <div class="field">
+                <h2 class="text-2xl">Email Address &nbsp&nbsp&nbsp&nbsp&nbsp: {{user.email}}</h2>
+              </div>
+              <div class="field">
+                <h2 class="text-2xl">Full Name &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp: {{user.profile.full_name}}</h2>
+              </div>
+              <div class="field">
+                <h2 class="text-2xl">User Name &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp: {{user.profile.username}}</h2>
+              </div>
+              <div class="field">
+                <h2 class="text-2xl">Country &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp: {{user.profile.country}}</h2>
+              </div>
+              
+              <div class="field">
+                <h2 class="text-2xl" style="margin: 10px 0;">City &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp: {{user.profile.city}}</h2>
+              </div>
+              <div class="field">
+                <h2 class="text-2xl">Zip code &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp: {{user.profile.zipcode}}</h2>
+              </div>
+              <div class="field">
+                <h2 class="text-2xl">Phone &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp: {{user.profile.phone}}</h2>
+              </div>
+              <div class="field">
+                <h2 class="text-2xl">Address &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp: {{user.profile.address_1}}</h2>
+              </div>
+              <hr>
+            </div>
+          </div>
+
+        <div class="card">
+          <header class="card-header">
+            <p class="card-header-title">
+              <span class="icon"><i class="mdi mdi-account-circle"></i></span>
+              Edit Profile
+            </p>
+          </header>
+          <div class="card-content">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+              <div class="field">
+                {% if user.profile.profile_pic %}
+                    <label class="label">Update Profile Pic</label>
+                {% else %}
+                    <label class="label">Upload Profile Pic</label>
+                {% endif %}
+                <div class="field-body">
+                  <div class="field file">
+                    <label class="upload control">
+                      <a class="button blue">
+                        Upload
+                      </a>
+                      <input type="file" name="profile_pic">
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="field">
+                <label class="label">E-mail</label>
+                <div class="field-body">
+                  <div class="field">
+                    <div class="control">
+                      <input type="email" name="email" readonly value="{{user.email}}" class="input">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">User Name</label>
+                <div class="field-body">
+                  <div class="field">
+                    <div class="control">
+                      <input type="text" autocomplete="on" name="username" value="{{user.profile.username}}" class="input" required>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Full Name</label>
+                <div class="field-body">
+                  <div class="field">
+                    <div class="control">
+                      <input type="text" autocomplete="on" name="fullname" value="{{user.profile.full_name}}" class="input" required>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Address</label>
+                <div class="field-body">
+                  <div class="field">
+                    <div class="control">
+                      <input type="text" name="addresd1" value="{{user.profile.address_1}}" class="input" required>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">City</label>
+                <div class="field-body">
+                  <div class="field">
+                    <div class="control">
+                      <input type="text" autocomplete="on" name="city" value="{{user.profile.city}}" class="input" required>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Zip Code</label>
+                <div class="field-body">
+                  <div class="field">
+                    <div class="control">
+                      <input type="text" autocomplete="on" name="zip_code" value="{{user.profile.zipcode}}" class="input" required>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Country</label>
+                <div class="field-body">
+                  <div class="field">
+                    <div class="control">
+                      <input type="text" autocomplete="on" name="country" value="{{user.profile.country}}" class="input" required>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Phone</label>
+                <div class="field-body">
+                  <div class="field">
+                    <div class="control">
+                      <input type="text" autocomplete="on" name="phone" value="{{user.profile.phone}}" class="input" required>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="field">
+                <div class="control">
+                  <button type="submit" class="button green">
+                    Update Profile
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        
+      </div>
+    </section>
+
+
+{% endblock %}

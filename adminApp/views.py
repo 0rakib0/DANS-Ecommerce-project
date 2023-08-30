@@ -86,6 +86,50 @@ def deleteProduct(request, slug):
         return redirect('adminApp:view_product')
     
     
+def updateProduct(request, slug):
+    product = Product.objects.get(slug=slug)
+    
+    if request.method == 'POST':
+        productName = request.POST.get('product-name')
+        productCode = request.POST.get('product-code')
+        categoryId = request.POST.get('categoryId')
+        quantity = request.POST.get('quantity')
+        productTitle = request.POST.get('product-title')
+        image = request.FILES.get('image')
+        colorName = request.POST.get('color-name')
+        productDetails = request.POST.get('product-details')
+        regularPrice = request.POST.get('regular-price')
+        isDiscount = request.POST.get('isDiscount')
+        discountPrice = request.POST.get('discount-price')
+        isNew = request.POST.get('isNew')        
+        gategory = Category.objects.get(id=categoryId)
+        
+        product.product_name = productName
+        product.product_code = productCode
+        product.product_quintity = quantity
+        product.product_category = gategory
+        product.roduct_title = productTitle
+        if image:
+            product.image = image
+        product.color_name = colorName
+        product.details = productDetails
+        product.main_price = regularPrice
+        product.dic_price = discountPrice
+        if isNew == 'on':
+            product.is_newarival = True
+        if isDiscount == 'on':
+            product.is_discount = True
+        product.save()
+        messages.success(request, 'Product Updated!')
+        return redirect('adminApp:view_product')
+    category = Category.objects.all()
+    context = {
+        'product':product,
+        'category':category
+    }
+    return render(request, 'AdminDashbord/update-product.html', context)
+    
+    
 # ------------------------------> Category <-------------------------------
 
 def addCategory(request):
@@ -115,3 +159,15 @@ def deleteCategory(request, id):
     else:
         messages.success(request, 'Category not Delete!')
         return redirect('adminApp:view_category')
+def updateCategory(request, id):        
+    category = Category.objects.get(id=id)
+    if request.method == 'POST':
+        catName = request.POST.get('category-name')
+        category.category_name = catName
+        category.save()
+        messages.success(request, 'Category Updated!')
+        return redirect('adminApp:view_category')
+    context = {
+        'category':category
+    }
+    return render(request, 'AdminDashbord/cat-update.html', context)
