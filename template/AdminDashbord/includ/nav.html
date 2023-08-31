@@ -14,9 +14,17 @@
         <div class="navbar-item dropdown has-divider has-user-avatar">
           <a class="navbar-link">
             <div class="user-avatar">
-              <img src="https://avatars.dicebear.com/v2/initials/john-doe.svg" alt="John Doe" class="rounded-full">
+              {% if user.profile.profile_pic %}
+                    <img src="/media/{{user.profile.profile_pic}}" alt="John Doe" class="rounded-full">
+                {% else %}
+                    <img src="https://www.kindpng.com/picc/m/252-2524695_dummy-profile-image-jpg-hd-png-download.png" alt="John Doe" class="rounded-full">
+                {% endif %}
             </div>
-            <div class="is-user-name"><span>John Doe</span></div>
+            {% if user.profile.username %}
+              <div class="is-user-name"><span>{{user.profile.username}}</span></div>
+            {% else %}
+            <div class="is-user-name"><span style="color: red;">Complate Profile</span></div>
+            {% endif %}
             <span class="icon"><i class="mdi mdi-chevron-down"></i></span>
           </a>
           <div class="navbar-dropdown">
@@ -29,13 +37,13 @@
               <span>Change Password</span>
             </a>
             <hr class="navbar-divider">
-            <a class="navbar-item">
+            <a class="navbar-item" href="{% url 'accounts:logout' %}">
               <span class="icon"><i class="mdi mdi-logout"></i></span>
               <span>Log Out</span>
             </a>
           </div>
         </div>
-        <a title="Log out" class="navbar-item desktop-icon-only">
+        <a href="{% url 'accounts:logout' %}" title="Log out" class="navbar-item desktop-icon-only">
           <span class="icon"><i class="mdi mdi-logout"></i></span>
           <span>Log out</span>
         </a>

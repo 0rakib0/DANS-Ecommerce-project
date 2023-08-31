@@ -52,8 +52,7 @@ def User_login(request):
             if user.user_type == 'Admin':
                 return redirect('adminApp:dashbord')
             if user.user_type == 'Customer':
-                messages.success(request, 'Loged In Success!')
-                return redirect('Home:home')
+                return redirect('homeApp:home')
             return redirect('homeApp:home')
         else:
             messages.error(request, 'Email or password not valid!')

@@ -1,13 +1,15 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from shopApp.models import Product
+from shopApp.models import Product, WishList, Category, Banner1, Banner2
 
 # Create your views here.
-def Base(request):
-    return render(request, 'base.html')
-
 
 def index(request):
+    newProduct = Product.objects.filter(is_newarival=True)
+    featuredProduct = Product.objects.filter(is_featured=True)
+    firstBanner = Banner1.objects.all()
+    secondBanner = Banner2.objects.get(id=1)
+    
     searResultTitle = None
     productName = None
     productCode = None
@@ -22,6 +24,10 @@ def index(request):
     context = {
         'searResultTitle':searResultTitle,
         'productName':productName,
-        'productCode':productCode
+        'productCode':productCode,
+        'newProduct':newProduct,
+        'featuredProduct':featuredProduct,
+        'firstBanner':firstBanner,
+        'secondBanner':secondBanner
     }
     return render(request, 'homeApp/home.html', context)

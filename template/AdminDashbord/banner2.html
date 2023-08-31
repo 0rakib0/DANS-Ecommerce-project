@@ -1,0 +1,126 @@
+{% extends "AdminDashbord/base.html" %}
+
+{% block body %}
+<section class="is-title-bar">
+    <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+      <ul>
+        <li>Admin</li>
+        <li>Add Banner</li>
+      </ul>
+    </div>
+    <div style="text-align: center;font-size:25px;color:rgb(72, 98, 72)">{% include "includs/msg.html" %}</div>
+  </section>
+  
+  <section class="is-hero-bar">
+    
+    <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+      <h1 class="title">
+        Add Banner
+      </h1>
+    </div>
+  </section>
+  
+    <section class="section main-section">
+      <div class="card mb-6">
+        <div class="card-content">
+          <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="field">
+              <label class="label">Banner Picture (W-1050 X H-1000)</label>
+              <div class="field-body">
+                <div class="field">
+                  <div class="control">
+                    <input class="input" name="banner_pic" type="file" >
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Offer Name</label>
+                <div class="field-body">
+                  <div class="field">
+                    <div class="control">
+                      <input class="input" name="offer-name" placeholder="Offer Name" type="text" >
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Offer Title</label>
+                <div class="field-body">
+                  <div class="field">
+                    <div class="control">
+                      <input class="input" name="offer_title" placeholder="category" type="text" >
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Offer Small Description</label>
+                <div class="field-body">
+                  <div class="field">
+                    <div class="control">
+                      <input class="input" name="offer-description" type="text" >
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="field grouped">
+              <div class="control">
+                <button type="submit" class="button green">
+                  Add Banner
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <hr>
+      <h2>Banner List</h2>
+      <div class="card-content">
+        <table>
+          <thead>
+          <tr>
+            <th class="checkbox-cell">
+              <label class="checkbox">
+                <input type="checkbox">
+                <span class="check"></span>
+              </label>
+            </th>
+            <th class="image-cell"></th>
+            <th>Banner Name</th>
+            <th>Action</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          {% for i in banner %}
+          <tr>
+              <td class="checkbox-cell">
+                  <label class="checkbox">
+                  <input type="checkbox">
+                  <span class="check"></span>
+                  </label>
+              </td>
+              <td class="image-cell">
+                  <div class="image">
+                  <img src="/media/{{i.banner_image}}" width="100px" class="rounded-full">
+                  </div>
+              </td>
+              <td data-label="Name">{{i.offer_name}}</td>
+              <td class="actions-cell">
+                  <div class="buttons right nowrap">
+                  <a href="{% url 'adminApp:first_banner_delete' id=i.id %}" class="button small red --jb-modal" data-target="sample-modal" type="button">
+                      <span class="icon"><i class="mdi mdi-trash-can"></i></span>
+                  </a>
+                  </div>
+              </td>
+          </tr> 
+          {% endfor %}           
+          </tbody>
+        </table>
+      </div>
+{% endblock %}

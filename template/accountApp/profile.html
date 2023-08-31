@@ -24,7 +24,7 @@
 <body class="bg-slate-100">
     <header>
         <div class="bg-primary-color ">
-            <div class="w-9/12 flex justify-between py-2  text-white">
+            <div class="w-9/12 flex justify-between py-2 flex-col md:flex-row  text-white">
                 <div class="pl-8">
                     <p>Order Online Or Call Us: (001) 2222-55555</p>
                 </div>
@@ -38,15 +38,19 @@
             </div>
         </div>
         <nav class="w-9/12 mx-auto mt-5">
-            <div class="flex justify-between items-center px-6">
+            <div class="flex justify-between flex-col md:flex-row items-center px-6">
                 <div>
-                    <h2 class="text-4xl">John Dev</h2>
+                    {% if user.profile.username %}
+                      <h2 class="text-4xl">{{user.profile.username}}</h2>
+                    {% else %}
+                      <h2 class="text-4xl" style="color: red;">Complate Profile</h2>
+                    {% endif %}
                     <p class="my-2">Dashbord / Profile</p>
                 </div>
                 <div>
-                    <ul class="flex gap-12">
-                        <li class="hover:text-green-600 text-xl"><a href="#">Home</a></li>
-                        <li class="hover:text-green-600 text-xl"><a href="#">Shop</a></li>
+                    <ul class="flex gap-4 md:gap-12">
+                        <li class="hover:text-green-600 text-xl"><a href="/">Home</a></li>
+                        <li class="hover:text-green-600 text-xl"><a href="{% url 'shopApp:products' %}">Shop</a></li>
                         <li class="hover:text-green-600 text-xl"><a href="#">About</a></li>
                         <li class="hover:text-green-600 text-xl"><a href="#">Contact</a></li>
                         <a href="{% url 'accounts:logout' %}" class="bg-primary-color px-4 py-1 rounded text-white ">Logout</a>
@@ -55,44 +59,75 @@
             </div>
         </nav>
     </header>
-    <main class="w-9/12 mx-auto my-12">
-        <div class="p-6 flex gap-4">
-            <div class="bg-white p-6">
-                <img src="https://cdn-icons-png.flaticon.com/512/145/145971.png" class="rounded-full mx-auto" width="150px" alt="">
-                <p class="text-2xl py-2 ">Your Information</p>
-                <h4 class="">First Name: Rakibul</h4>
-                <h4>Last Name: Hasan</h4>
-                <h4>Email: example@gmail.com</h4>
-                <h4>Phone: +00801571140796</h4>
-                <h4>Country: Bangladesh</h4>
+    <main class="lg:w-9/12 mx-auto my-12">
+        <div class="p-6 flex gap-4 flex-col  md:flex-row">
+            <div class="bg-white p-6 md:w-1/3">
+              {% if user.profile.profile_pic %}
+                <img src="/media/{{user.profile.profile_pic}}" class="rounded-full mx-auto" width="150px" alt="">
+              {% else %}
+                <img src="https://www.kindpng.com/picc/m/252-2524695_dummy-profile-image-jpg-hd-png-download.png" class="rounded-full mx-auto" width="150px" alt="">
+              {% endif %}
+                <p class="text-2xl py-2 text-center">Your Information</p>
+                {% if user.profile.is_fully_filed == False %}
+                <h2 class="text-2xl text-red-400 text-center margin-y-2">Please complate your profile</h2>
+                {% endif %}
+                <h4 class="my-2"><span class="font-semibold">Full Name:</span> {{user.profile.full_name}}</h4>
+                <h4 class="my-2"><span class="font-semibold">User Name:</span> {{user.profile.username}}</h4>
+                <h4 class="my-2"><span class="font-semibold">Email:</span> {{user.email}}</h4>
+                <h4 class="my-2"><span class="font-semibold">Phone:</span> {{user.profile.phone}}</h4>
+                <h4 class="my-2"><span class="font-semibold">Country:</span> {{user.profile.country}}</h4>
+                <h4 class="my-2"><span class="font-semibold">City:</span> {{user.profile.city}}</h4>
+                <h4 class="my-2"><span class="font-semibold">Zip Come:</span> {{user.profile.zipcode}}</h4>
+                <h4 class="my-2"><span class="font-semibold">Address:</span> {{user.profile.address_1}}</h4>
             </div>
             <div class="bg-white flex-1 p-4">
                 <div class="flex gap-12">
                     <h3 id="edit-profile">Edit Profile</h3>
-                    <h3 id="order">Your Order</h3>
-                    <h3 class="wishlist">Your Wish List</h3>
-                    <h3 id="card">Your Card List</h3>
-                    
+                    <h3 id="order">Your Order</h3>                    
                 </div>
                 <div>
                     <!-- Edit Profile Form -->
                     <div class="" id="profileForm">
-                        <form action="" class="my-6">
+                        <form method="POST" class="my-6" enctype="multipart/form-data">
+                          {% csrf_token %}
                             <div class="my-4">
-                                <label for="firs-name" class="">First Name:</label>
-                                <input class="rounded outline-none border p-1 border-primary-color ml-4 w-3/5" type="text">
+                              <label for="firs-name" class="ml-4">Profile Pic</label><br>
+                              <input class="rounded outline-none border p-1 border-primary-color ml-4 w-3/4" name="profile_pic" type="file">
                             </div>
                             <div class="my-4">
-                                <label for="firs-name" class="">First Name:</label>
-                                <input class="rounded outline-none border p-1 border-primary-color ml-4 w-3/5" type="text">
+                                <label for="firs-name" class="ml-4">Email</label><br>
+                                <input class="rounded outline-none border p-1 border-primary-color ml-4 w-3/4 p-2" value="{{user.email}}" readonly type="email">
                             </div>
                             <div class="my-4">
-                                <label for="firs-name" class="">First Name:</label>
-                                <input class="rounded outline-none border p-1 border-primary-color ml-4 w-3/5" type="text">
+                              <label for="firs-name" class="ml-4">Full Name</label><br>
+                              <input class="rounded outline-none border p-1 border-primary-color ml-4 w-3/4 p-2" name="fullname" value="{{user.profile.full_name}}"  type="text" required>
                             </div>
                             <div class="my-4">
-                                <label for="firs-name" class="">First Name:</label>
-                                <input class="rounded outline-none border p-1 border-primary-color ml-4 w-3/5" type="text">
+                              <label for="firs-name" class="ml-4">User Name</label><br>
+                              <input class="rounded outline-none border p-1 border-primary-color ml-4 w-3/4" name="username" value="{{user.profile.username}}" type="text" required>
+                            </div>
+                            <div class="my-4">
+                              <label for="firs-name" class="ml-4">Phone</label><br>
+                              <input class="rounded outline-none border p-1 border-primary-color ml-4 w-3/4" name="phone" value="{{user.profile.phone}}" type="text">
+                            </div>
+                            <div class="my-4">
+                              <label for="firs-name" class="ml-4">Country</label><br>
+                              <input class="rounded outline-none border p-1 border-primary-color ml-4 w-3/4" name="country" value="{{user.profile.country}}" type="text">
+                            </div>
+                            <div class="my-4">
+                              <label for="firs-name" class="ml-4">Adreess</label><br>
+                              <input class="rounded outline-none border p-1 border-primary-color ml-4 w-3/4" name="addresd1" value="{{user.profile.address_1}}" type="text">
+                            </div>
+                            <div class="my-4">
+                              <label for="firs-name" class="ml-4">City</label><br>
+                              <input class="rounded outline-none border p-1 border-primary-color ml-4 w-3/4" name="city" value="{{user.profile.city}}" type="text">
+                            </div>
+                            <div class="my-4">
+                              <label for="firs-name" class="ml-4">Zip Code</label><br>
+                              <input class="rounded outline-none border p-1 border-primary-color ml-4 w-3/4" name="zip_code" value="{{user.profile.zipcode}}" type="text">
+                            </div>
+                            <div class="my-4">
+                              <input class="rounded outline-none border p-1 border-primary-color ml-4 w-3/4 bg-primary-color text-white" value="Update Profile" type="submit">
                             </div>
                         </form>
                     </div>

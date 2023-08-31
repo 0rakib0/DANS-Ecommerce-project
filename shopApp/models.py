@@ -42,6 +42,7 @@ class Product(models.Model):
     details              = models.TextField()
     main_price           = models.IntegerField()
     is_newarival         = models.BooleanField(default=False)
+    is_featured          = models.BooleanField(default=False)
     is_discount          = models.BooleanField(default=False)
     dic_price            = models.IntegerField(default=0, blank=True, null=True)
     cerated_at           = models.DateTimeField(auto_now_add=True)
@@ -72,5 +73,22 @@ class WishList(models.Model):
     def __str__(self) -> str:
         return str(self.user.email) +'==>'+str(self.product.product_name)
     
+    
+class Banner1(models.Model):
+    offer_name = models.CharField(max_length=160)
+    offer_title = models.CharField(max_length=160)
+    offer_description = models.CharField(max_length=260)
+    banner_image = models.ImageField(upload_to='bannerimage')
+    
+    def __str__(self) -> str:
+        return self.offer_name
+    
+class Banner2(models.Model):
+    offer_name = models.CharField(max_length=160)
+    offer_title = models.CharField(max_length=160)
+    offer_description = models.CharField(max_length=260)
+    banner_image = models.ImageField(upload_to='bannerimage')
+    
 
-
+    def __str__(self) -> str:
+        return self.offer_name

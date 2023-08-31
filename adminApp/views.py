@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from shopApp.models import Product, Category, ColorImage
+from shopApp.models import Product, Category, ColorImage, Banner1, Banner2
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 # Create your views here.
@@ -37,12 +37,10 @@ def addProduct(request):
         regularPrice = request.POST.get('regular-price')
         isDiscount = request.POST.get('isDiscount')
         discountPrice = request.POST.get('discount-price')
-        isNew = request.POST.get('isNew')        
+        isNew = request.POST.get('isNew')
+        isFeatur = request.POST.get('isfeatured')    
         gategory = Category.objects.get(id=categoryId)
-        
-        # for image in colorImage:
-        #     uploaded_image = UploadedImage(image=image)
-        #     uploaded_image.save()
+       
         
         product = Product(
             product_name = productName,
@@ -60,6 +58,8 @@ def addProduct(request):
             product.is_newarival = True
         if isDiscount == 'on':
             product.is_discount = True
+        if isFeatur == 'on':
+            product.is_featured = True
         product.save()
         for color in colorImage:
             image = ColorImage(image=color)
@@ -101,7 +101,8 @@ def updateProduct(request, slug):
         regularPrice = request.POST.get('regular-price')
         isDiscount = request.POST.get('isDiscount')
         discountPrice = request.POST.get('discount-price')
-        isNew = request.POST.get('isNew')        
+        isNew = request.POST.get('isNew')
+        isFeatur = request.POST.get('isfeatured')      
         gategory = Category.objects.get(id=categoryId)
         
         product.product_name = productName
@@ -119,6 +120,8 @@ def updateProduct(request, slug):
             product.is_newarival = True
         if isDiscount == 'on':
             product.is_discount = True
+        if isFeatur == 'on':
+            product.is_featured = True
         product.save()
         messages.success(request, 'Product Updated!')
         return redirect('adminApp:view_product')
@@ -171,3 +174,59 @@ def updateCategory(request, id):
         'category':category
     }
     return render(request, 'AdminDashbord/cat-update.html', context)
+
+
+# -------------------> Banner management<--------------------------
+@login_required
+def BannerFirst(request):
+    if request.method == 'POST':
+        offer_image = request.FILES.get('banner_pic')
+        offer_name = request.POST.get('offer-name')
+        offer_title = request.POST.get('offer_title')
+        offer_Dis = request.POST.get('offer-description')
+
+        banner = Banner1(
+            offer_name = offer_name,
+            offer_title = offer_title,
+            offer_description = offer_Dis,
+            banner_image = offer_image
+        )
+        banner.save()
+        messages.success(request, 'Banner Added!')
+        return redirect('adminApp:banner1')
+    banner = Banner1.objects.all()
+    return render(request, 'AdminDashbord/banner1.html', context={'banner':banner})
+
+
+def FirstBannerDelete(request, id):
+    baner = Banner1.objects.get(id=id)
+    if baner:
+        baner.delete()
+        messages.success(request, 'Banner Deleted!')
+        return redirect('adminApp:banner1')
+    else:
+        messages.success(request, 'Banner not Deleted!')
+        return redirect('adminApp:banner1')
+
+@login_required
+def BannerSecond(request):
+    if request.method == 'POST':
+        offer_image = request.FILES.get('banner_pic')
+        offer_name = request.POST.get('offer-name')
+        offer_title = request.POST.get('offer_title')
+        offer_Dis = request.POST.get('offer-description')
+        
+        benner = Banner2.objects.get(id=1)
+        if offer_image:
+            benner.banner_image = offer_image
+        if offer_name:
+            benner.offer_name = offer_name
+        if offer_title:
+            benner.offer_title = offer_title
+        if offer_Dis:
+            benner.offer_description = offer_Dis
+        benner.save()
+        messages.success(request, 'Banner Updated!')
+        return redirect('adminApp:banner2')
+    banner = Banner2.objects.all()
+    return render(request, 'AdminDashbord/banner2.html', context={'banner':banner})
