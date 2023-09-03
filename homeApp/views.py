@@ -31,3 +31,6 @@ def index(request):
         'secondBanner':secondBanner
     }
     return render(request, 'homeApp/home.html', context)
+
+def ContactUs(request):
+    return render(request, 'homeApp/contact.html', context={})
