@@ -3,6 +3,7 @@ from shopApp.models import Product, Category, ColorImage, Banner1, Banner2
 from django.contrib.auth.decorators import login_required
 from homeApp.models import Massage
 from django.contrib import messages
+from orderApp.models import Order
 # Create your views here.
 @login_required
 def Dashbord(request):
@@ -253,3 +254,25 @@ def msgDelete(request, id):
     else:
         messages.success(request, 'Massage not deleted!')
         return redirect('adminApp:msg_view')
+    
+# ===================> view Customars Orders <==================
+def orderList(request):
+    all_orders = Order.objects.filter(user=request.user, ordered=True)
+    context={
+        'all_orders':all_orders,
+    }
+    return render(request, 'AdminDashbord/all-order.html', context)
+
+def deliveryOrder(request):
+    delivery_orders = Order.objects.filter(user=request.user, ordered=True, delivered_status=True)
+    context = {
+        'delivery_orders':delivery_orders,
+    }
+    return render(request, 'AdminDashbord/delivery-order.html', context)
+
+def pendingOrder(request):
+    pending_orders = Order.objects.filter(user=request.user, ordered=True, delivered_status=False)
+    context = {
+        'pending_orders':pending_orders,
+    }
+    return render(request, 'AdminDashbord/pending-order.html', context)

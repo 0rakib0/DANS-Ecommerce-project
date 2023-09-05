@@ -35,6 +35,7 @@ class Order(models.Model):
     ordered = models.BooleanField(default=False)
     createdAt = models.DateTimeField(auto_now_add=True)
     paymentId = models.CharField(max_length=264, blank=True, null=True)
+    delivered_status = models.BooleanField(default=False)
     orderId = models.CharField(max_length=200, blank=True, null=True)
 
     def __str__(self):

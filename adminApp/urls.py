@@ -23,4 +23,10 @@ urlpatterns = [
     path("view-massags/", views.ViewMassage, name='msg_view'),
     path('massage-read/<id>/', views.ReadStatus, name='read_status'),
     path('massage-delete/<id>/', views.msgDelete, name='delete_msg'),
+    
+    
+    # ======================> Order List <==================
+    path('all-orders-list/', views.orderList, name='all_order_list'),
+    path('delivered-order/', views.deliveryOrder, name='deliver_order'),
+    path('pending-order/', views.pendingOrder, name='pending_order'),
 ]

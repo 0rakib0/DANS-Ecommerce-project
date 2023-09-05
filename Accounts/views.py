@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.hashers import check_password, make_password
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
+from orderApp.models import Order
 # Create your views here.
 
 
@@ -92,10 +93,16 @@ def User_Profile(request):
         profile.phone = phone
         profile.save()
         messages.success(request, 'Profile successfully updated!')
-        return redirect('accounts:profile')    
-        
+        return redirect('accounts:profile')   
+    try: 
+        orders = Order.objects.filter(user=request.user, ordered=True)
+    except:
+        messages.success(request, 'You DO not have Any active order!')
+        return redirect('accounts:profile')
+    
     context = {
         'profile':profile,
+        'orders':orders,
     }
     if request.user.user_type == 'Admin':
         return render(request, 'accountApp/admin_profile.html', context)
