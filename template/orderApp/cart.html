@@ -44,7 +44,7 @@
           <td>{{order.getTotals}}&#2547;</td>
         </tr>
       </table>
-      <a href="#" class="checkout btn">Proceed To Checkout</a>
+      <a href="{% url 'paymentApp:checkout' %}" class="checkout btn" style="background-color: chartreuse;padding: 2rem;color: white;border-radius: 8px;">Proceed To Checkout</a>
     </div>
   </div>
 

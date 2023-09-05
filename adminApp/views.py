@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from shopApp.models import Product, Category, ColorImage, Banner1, Banner2
 from django.contrib.auth.decorators import login_required
+from homeApp.models import Massage
 from django.contrib import messages
 # Create your views here.
 @login_required
@@ -230,3 +231,25 @@ def BannerSecond(request):
         return redirect('adminApp:banner2')
     banner = Banner2.objects.all()
     return render(request, 'AdminDashbord/banner2.html', context={'banner':banner})
+
+
+def ViewMassage(request):
+    msg = Massage.objects.all()
+    return render(request, 'AdminDashbord/msgView.html', context={'msg':msg})
+
+def ReadStatus(request, id):
+    msg = Massage.objects.get(id=id)
+
+    msg.isRed = True
+    msg.save()
+    return redirect('adminApp:msg_view')
+
+def msgDelete(request, id):
+    msg = Massage.objects.get(id=id)
+    if msg:
+        msg.delete()
+        messages.success(request, 'Massage Deleted!')
+        return redirect('adminApp:msg_view')
+    else:
+        messages.success(request, 'Massage not deleted!')
+        return redirect('adminApp:msg_view')

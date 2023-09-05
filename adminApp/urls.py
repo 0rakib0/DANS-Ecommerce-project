@@ -17,5 +17,10 @@ urlpatterns = [
     # --------------------> Banner management <---------------
     path('banner-update/', views.BannerFirst, name='banner1'),
     path('new-product-banner-update/', views.BannerSecond, name='banner2'),
-    path('first-banner-delete/<id>/', views.FirstBannerDelete, name='first_banner_delete')
+    path('first-banner-delete/<id>/', views.FirstBannerDelete, name='first_banner_delete'),
+
+    # ---------------------> masage section <---------------
+    path("view-massags/", views.ViewMassage, name='msg_view'),
+    path('massage-read/<id>/', views.ReadStatus, name='read_status'),
+    path('massage-delete/<id>/', views.msgDelete, name='delete_msg'),
 ]

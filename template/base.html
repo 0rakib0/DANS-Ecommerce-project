@@ -17,6 +17,8 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/css/glide.theme.css">
     <!-- Custom StyleSheet -->
     <link rel="stylesheet" href="{% static 'website_assets/css/styles.css' %}" />
+    <script src="https://kit.fontawesome.com/b0da198e17.js"
+    crossorigin="anonymous"></script>
     <title>ecommerce Website</title>
     <style>
       .checkout-container{
@@ -27,7 +29,7 @@
         display: flex;
         width: 60%;
         margin-bottom: 16px;
-      }
+      } 
       .checkout-container h2{
         padding-left: 6rem;
         font-weight: 400;
@@ -59,7 +61,6 @@
       }
       .total-fields{
         width: 30%;
-        background-color: aquamarine;
       }
 
       .orderContainer{
@@ -68,6 +69,13 @@
 
       .orderContainer table{
         margin: 8px 0;
+      }
+      .orderBtn{
+        background-color: #6cbe02;
+        padding: 1rem;
+        color: white;
+        border-radius: 8px;
+        margin-top: 18px;
       }
 
 
@@ -79,7 +87,7 @@
         }
       }
       /* media quiry for small device */
-      @media only screen and (max-width: 400px) {
+      @media only screen and (max-width: 500px) {
         .address-container{
          flex-direction: column;
         }
@@ -88,6 +96,9 @@
         }
         .fields button{
           width: 200%;
+        }
+        .total-fields{
+          width: 100%;
         }
       }
     </style>
@@ -100,19 +111,19 @@
         <div class="container d-flex">
           <p>Order Online Or Call Us: (001) 2222-55555</p>
           <ul class="d-flex">
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">FAQ</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="{% url 'homeApp:about_us' %}">About Us</a></li>
+            <li><a href="{% url 'homeApp:faq' %}">FAQ</a></li>
+            <li><a href="{% url 'homeApp:contact_us' %}">Contact</a></li>
           </ul>
         </div>
       </div>
       <div class="navigation">
         <div class="nav-center container d-flex">
-          <a href="/" class="logo"><h1>Dans</h1></a>
+          <a href="/" class="logo text-6xl font-bold"><h1>Dans</h1></a>
 
           <ul class="nav-list d-flex">
             <li>
-              <div>
+              <div class="hidden">
                 <form action="{% url 'homeApp:home' %}" method="GET">
                   <input
                     style="height: 40px;padding:10px;border:1px solid #6cbe02; outline:none"
@@ -131,13 +142,13 @@
               <a href="{% url 'shopApp:products' %}" class="nav-link">Shop</a>
             </li>
             <li class="nav-item">
-              <a href="#terms" class="nav-link">Terms</a>
+              <a href="{% url 'homeApp:tearm' %}" class="nav-link">Terms</a>
             </li>
             <li class="nav-item">
-              <a href="#about" class="nav-link">About</a>
+              <a href="{% url 'homeApp:about_us' %}" class="nav-link">About</a>
             </li>
             <li class="nav-item">
-              <a href="#contact" class="nav-link">Contact</a>
+              <a href="{% url 'homeApp:contact_us' %}" class="nav-link">Contact</a>
             </li>
             <li class="icons d-flex">
               {% if user.is_authenticated %}

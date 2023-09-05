@@ -1,0 +1,59 @@
+{% extends "AdminDashbord/base.html" %}
+
+{% block body %}
+
+
+<section class="is-title-bar">
+    <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+      <ul>
+        <li>Admin</li>
+        <li>Category List</li>
+      </ul>
+    </div>
+    <div style="text-align: center;font-size:25px;color:rgb(72, 98, 72)">{% include "includs/msg.html" %}</div>
+  </section>
+    <section class="section main-section">
+      <div class="card has-table">
+        <header class="card-header">
+          <p class="card-header-title">
+            Category
+          </p>
+          <a href="#" class="card-header-icon">
+            <span class="icon"><i class="mdi mdi-reload"></i></span>
+          </a>
+        </header>
+        <div class="card-content">
+          <table class="text-center">
+            <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th style="text-align: center;">Status</th>
+              <th style="text-align: center;">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for i in msg %}
+            <tr style="padding: 20px;">
+                <td data-label="Name">{{i.name}}</td>
+                <td data-label="Name" style="margin-bottom: 10px;">{{i.email}}</td>
+                {% if i.isRed %}
+                <td data-label="Name" style="color: rgb(13, 139, 109);text-align: center;margin-bottom: 10px;border-radius: 8px;font-size: 18px;">Readed</td>
+                {% else %}
+                <td data-label="Name" style="color: rgb(255, 22, 22);text-align: center;font-size: 18px;"><a href="{% url 'adminApp:read_status' id=i.id %}">Unread</a></td>
+                {% endif %}
+                <td class="actions-cell">
+                    <div class="buttons right nowrap">
+                    <a href="{% url 'adminApp:delete_msg' id=i.id %}" class="button small red --jb-modal" data-target="sample-modal" type="button">
+                        <span class="icon"><i class="mdi mdi-trash-can"></i></span>
+                    </a>
+                    </div>
+                </td>
+            </tr> 
+            {% endfor %}           
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+{% endblock %}

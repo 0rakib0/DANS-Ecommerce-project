@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body %}
+
+{% include "tailwind.html" %}
+
+<!-- contact infomation section -->
+<section class="md:w-10/12 mx-auto">
+    <h2 class="text-center text-6xl font-bold my-8 pt-6">Contact Us</h2>
+    <div style="color:#6cbe02;font-size:20px;margin-bottom:10px;">
+        {% include 'includs/msg.html' %}
+      </div>
+    <div class="flex justify-evenly flex-col md:flex-row mt-6 md:mb-12">
+        <div class="text-center">
+            <div>
+                <i class="fa-solid fa-headphones bg-primary-color p-6 text-6xl rounded-full text-white my-6"></i>
+            </div>
+            <h4 class="text-4xl my-2">BY PHONE</h4>
+            <p>(Thursday to Saturday)</p>
+            <p>Hote Line:</p>
+            <p>016XXXXXXXXXXX</p>
+        </div>
+        <div class="text-center">
+            <div>
+                <i class="fa-solid fa-location-crosshairs bg-primary-color p-6 text-6xl rounded-full text-white my-6"></i>
+            </div>
+            <h4 class="text-4xl my-2">ADDRESS</h4>
+            <p>demo address</p>
+            <p>Block-X, Road-X/3</p>
+            <p>Gulshan Dhaka</p>
+        </div>
+        <div class="text-center">
+            <div>
+                <i class="fa-solid fa-share-from-square bg-primary-color p-6 text-6xl rounded-full text-white my-6"></i>
+            </div>
+            <div class="flex gap-2 flex-col">
+                <h4 class="text-4xl my-2">BY SOCIAL MEDIA</h4>
+                <a href>FACEBOOK</a>
+                <a href>INSTAGRAM</a>
+                <a href>TWITTER</a>
+            </div>
+        </div>
+    </div>
+    <div class="md:my-12 my-6">
+        <h2 class="text-center text-6xl font-samibold my-8 pt-6">Send Us Your Quarys</h2>
+        <div>
+            <form class="flex flex-col w-3/4 mx-auto" method="POST">
+                {% csrf_token %}
+                <label for="name" class="text-3xl mb-2">Your Name</label>
+                <input type="text" name="name" class="border w-full h-16 pl-6 focus:outline-primary-color mb-6" placeholder="Enter Name" required>
+                <label for="email" class="text-3xl mb-2">Your Email</label>
+                <input type="email" name="email" placeholder="Enter Email" class="border w-full h-16 pl-6 focus:outline-primary-color mb-6" name="" value="" required>
+                <label for="message" class="text-3xl mb-2">Your Massage</label>
+                <textarea id="" cols="40" rows="5" name="message" class="border w-full h-96 pl-6 focus:outline-primary-color pt-6 mb-6" placeholder="Your Massage"></textarea>
+                <button class="bg-primary-color w-72 py-4 text-white rounded-lg text-3xl mb-">Submit</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
