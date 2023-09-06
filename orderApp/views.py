@@ -1,4 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Cart, Order
@@ -10,21 +12,42 @@ from shopApp.models import Product
 
 @login_required
 def addToCard(request, slug):
+    if request.method == 'POST':
+        size = request.POST.get('size')
+        color = request.POST.get('color')
+        quantity = request.POST.get('quantity')
+    
+        product = Product.objects.get(slug=slug)
+        available_size = product.availableSize
+        if size not in available_size:
+            messages.success(request, 'please select size from available size')
+            return redirect(reverse('shopApp:productDetails', kwargs={'slug': slug}))
+        
+    
     item = get_object_or_404(Product, slug=slug)
     order_item = Cart.objects.get_or_create(item=item, user=request.user, purchase=False)
     order_qs = Order.objects.filter(user=request.user, ordered=False)
     if order_qs.exists():
         order = order_qs[0]
         if order.orderItem.filter(item=item).exists():
+            print('---------11----------------')
+            print(order_item[0])
+            
             order_item[0].quantity +=1
             order_item[0].save()
             messages.success(request, 'Item Quintity Is update!')
             return redirect('homeApp:home')
         else:
+            print('---------2222---------')
+            print(order_item)
+            order_item[0].availableSize = size
+            order_item[0].color_name = color
             order.orderItem.add(order_item[0])
+            order_item[0].save()
             messages.success(request, 'Item added to your card!')
             return redirect('homeApp:home')
     else:
+        print('---------3333---------')
         order = Order(user=request.user)
         order.save()
         order.orderItem.add(order_item[0])

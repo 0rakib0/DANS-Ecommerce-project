@@ -26,7 +26,6 @@
           <table>
             <thead>
             <tr>
-              <th class="image-cell"></th>
               <th>Order ID</th>
               <th>Product</th>
               <th>Status</th>
@@ -41,21 +40,21 @@
             <tr>
                 <td data-label="Name">{{i.orderId}}</td>
                 <td data-label="Company">
-                    {% for i in i.orderItem.all %} {{i}} {% endfor %}
+                    {% for i in i.orderItem.all %} {{i}}<br> {% endfor %}
                 </td>
                 {% if i.delivered_status %}
-                    <td data-label="City" style="color: white;background-color:rgb(230, 85, 85);text-align:center;">Delivered</td>
+                    <td data-label="City" style="color: white;background-color:#14A44D;text-align:center;">Delivered</td>
                 {% else %}
-                    <td data-label="City" style="text-align:center;">Prossesing</td>
+                    <td data-label="City" style="color: white;background-color:#54B4D3;text-align:center;">Prossesing</td>
                 {% endif %}
                 <td data-label="City" style="text-align:center;">{{i.getTotals}}&#2547</td>
-                <td data-label="City">{{i.createdAt}}</td>
+                <td data-label="City">{{i.createdAt|date:"d M Y"}}</td>
                 <td class="actions-cell">
                     <div class="buttons right nowrap">
-                    <a href="{% url 'adminApp:update_product' slug=i.slug %}" class="button small green --jb-modal"  data-target="sample-modal-2" type="button">
+                    <a href="" class="button small green --jb-modal"  data-target="sample-modal-2" type="button">
                         <span class="icon"><i class="mdi mdi-eye"></i></span>
                     </a>
-                    <a href="{% url 'adminApp:delete_product' slug=i.slug %}" class="button small red --jb-modal" data-target="sample-modal" type="button">
+                    <a href="{% url 'adminApp:delete_order' id=i.id %}" class="button small red --jb-modal" data-target="sample-modal" type="button">
                         <span class="icon"><i class="mdi mdi-trash-can"></i></span>
                     </a>
                     </div>

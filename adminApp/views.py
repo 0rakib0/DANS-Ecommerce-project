@@ -35,6 +35,7 @@ def addProduct(request):
         image = request.FILES.get('image')
         colorImage = request.FILES.getlist('color-image')
         colorName = request.POST.get('color-name')
+        size = request.POST.get('size')
         productDetails = request.POST.get('product-details')
         regularPrice = request.POST.get('regular-price')
         isDiscount = request.POST.get('isDiscount')
@@ -52,6 +53,7 @@ def addProduct(request):
             roduct_title = productTitle,
             image = image,
             color_name = colorName,
+            availableSize = size,
             details = productDetails,
             main_price = regularPrice,            
             dic_price = discountPrice
@@ -99,6 +101,7 @@ def updateProduct(request, slug):
         productTitle = request.POST.get('product-title')
         image = request.FILES.get('image')
         colorName = request.POST.get('color-name')
+        size = request.POST.get('size')
         productDetails = request.POST.get('product-details')
         regularPrice = request.POST.get('regular-price')
         isDiscount = request.POST.get('isDiscount')
@@ -115,6 +118,7 @@ def updateProduct(request, slug):
         if image:
             product.image = image
         product.color_name = colorName
+        product.availableSize = size
         product.details = productDetails
         product.main_price = regularPrice
         product.dic_price = discountPrice
@@ -257,22 +261,36 @@ def msgDelete(request, id):
     
 # ===================> view Customars Orders <==================
 def orderList(request):
-    all_orders = Order.objects.filter(user=request.user, ordered=True)
+    all_orders = Order.objects.filter(ordered=True)
+    print('-----------------------------')
+    print(all_orders)
     context={
         'all_orders':all_orders,
     }
     return render(request, 'AdminDashbord/all-order.html', context)
 
 def deliveryOrder(request):
-    delivery_orders = Order.objects.filter(user=request.user, ordered=True, delivered_status=True)
+    delivery_orders = Order.objects.filter(ordered=True, delivered_status=True)
     context = {
         'delivery_orders':delivery_orders,
     }
     return render(request, 'AdminDashbord/delivery-order.html', context)
 
 def pendingOrder(request):
-    pending_orders = Order.objects.filter(user=request.user, ordered=True, delivered_status=False)
+    pending_orders = Order.objects.filter(ordered=True, delivered_status=False)
     context = {
         'pending_orders':pending_orders,
     }
     return render(request, 'AdminDashbord/pending-order.html', context)
+
+
+def Delete_order(request, id):
+    order = Order.objects.get(id=id)
+    try:
+        order.delete()
+        messages.success(request, 'Order Deleted!')
+        return redirect('adminApp:all_order_list')
+    except:
+        messages.success(request, 'Order Not Deleted!')
+        return redirect('adminApp:all_order_list')
+   

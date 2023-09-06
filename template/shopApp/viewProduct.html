@@ -17,14 +17,21 @@
             <div class="price" style="margin-right: 10px;">{{singProduct.dic_price}}&#2547;</div>
             <div class="price"><del>{{singProduct.main_price}}&#2547;</del></div>
         {% endif %}
-        <form>
+        <form method="POST" action="{% url 'orderApp:add_to_card' slug=singProduct.slug %}">
+          {% csrf_token %}
           <div style="display: flex;flex-direction: column;">
             <div>
+              <div style="color:#be2e02;font-size:20px;margin-bottom:10px;">
+                {% include 'includs/msg.html' %}
+              </div><br>
               <label for="">Select Size</label><br>
-              <select name="" id="" style="margin-top: 10px;">
-                <option value="" >--SELECT SIZE--</option>
-                <option value="">Hello1</option>
-                <option value="">Hello1</option>
+              <p style="color:rgb(140, 140, 140)">Available Size: {{singProduct.availableSize}}</p>
+              <select name="size" id="" style="margin-top: 10px;">
+                <option value="Free Size">Free Size</option>
+                <option value="S">S</option>
+                <option value="M">M</option>
+                <option value="X">X</option>
+                <option value="XL">XL</option>
               </select>
             </div>
             <div style="margin-top: 10px;">
@@ -32,12 +39,13 @@
               {% for color in singProduct.product_color_image.all %}
               <img src="{{color.image.url}}" width="80px" ="Color Image">
               {% endfor %} <br>
-              <input type="text" style="height: 30px;padding:10px;margin-top:5px;outline:#6cbe02" placeholder="write choosen color" required>
+              <input type="text" style="height: 30px;padding:10px;margin-top:5px;outline:#6cbe02" name="color" placeholder="write choosen color" required>
             </div>
             <div style="margin-top: 10px;">
               <label for="">Quintity: </label><br>
-              <input type="number" value="1" style="width: 10%;height:35px;padding:10px;">
-            <a href="{% url 'orderApp:add_to_card' slug=singProduct.slug %}" style="padding: 8px 5%;background-color:#6cbe02;border-radius:8px;color:white;">Add To Cart</a>
+              <input type="number" value="1" name="quantity" style="width: 10%;height:35px;padding:10px;">
+             <!-- <a href="{% url 'orderApp:add_to_card' slug=singProduct.slug %}" style="padding: 8px 5%;background-color:#6cbe02;border-radius:8px;color:white;">Add To Cart</a> -->
+             <button style="padding: 10px 5%;background-color:#6cbe02;border-radius:8px;color:white;border:#6cbe02;">Add To Cart</button>
             </div>
           </div>
         </form>

@@ -29,4 +29,5 @@ urlpatterns = [
     path('all-orders-list/', views.orderList, name='all_order_list'),
     path('delivered-order/', views.deliveryOrder, name='deliver_order'),
     path('pending-order/', views.pendingOrder, name='pending_order'),
+    path('order-delete/<id>/', views.Delete_order, name='delete_order'),
 ]

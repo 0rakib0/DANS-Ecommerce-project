@@ -4,6 +4,9 @@
 
 
 <div class="container cart">
+    <div style="color:#6cbe02;font-size:20px;margin-bottom:10px;text-align: center">
+      {% include 'includs/msg.html' %}
+    </div>
     <table>
       <tr>
         <th>Product</th>
@@ -27,7 +30,7 @@
           </div>
         </td>
         <td>
-            <span><a href="{% url 'orderApp:quantity_decrease' slug=i.item.slug %}">-</a></span><input type="number" value="{{i.quantity}}" min="1" /><span><a href="{% url 'orderApp:quantity_increase' slug=i.item.slug %}">+</a></span>
+            <span><a href="{% url 'orderApp:quantity_decrease' slug=i.item.slug %}" style="background-color: #6cbe02;padding:6px;font-size:25;color:white;margin-right:4px "><i class="fa-solid fa-minus"></i></a></span><input type="text" value="{{i.quantity}}" min="1" /><span><a href="{% url 'orderApp:quantity_increase' slug=i.item.slug %}" style="background-color: #6cbe02;color:white;padding:6px;margin-left:4px;"><i class="fa-solid fa-plus"></i></a></span>
         </td>
         <td>{{i.get_total}}&#2547;</td>
       </tr>

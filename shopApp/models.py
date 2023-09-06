@@ -38,6 +38,7 @@ class Product(models.Model):
     image                = models.ImageField(upload_to='products')
     product_color_image  = models.ManyToManyField(ColorImage, blank=True, null=True, related_name="colorImg")
     color_name           = models.CharField(max_length=160)
+    availableSize        = models.CharField(max_length=60)
     slug                 = models.SlugField(unique=True, null=True, blank=True)
     details              = models.TextField()
     main_price           = models.IntegerField()

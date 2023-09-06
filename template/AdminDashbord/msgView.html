@@ -28,6 +28,7 @@
             <tr>
               <th>Name</th>
               <th>Email</th>
+              <th>Massage</th>
               <th style="text-align: center;">Status</th>
               <th style="text-align: center;">Action</th>
             </tr>
@@ -37,6 +38,7 @@
             <tr style="padding: 20px;">
                 <td data-label="Name">{{i.name}}</td>
                 <td data-label="Name" style="margin-bottom: 10px;">{{i.email}}</td>
+                <td data-label="Name" style="margin-bottom: 10px;">{{i.message}}</td>
                 {% if i.isRed %}
                 <td data-label="Name" style="color: rgb(13, 139, 109);text-align: center;margin-bottom: 10px;border-radius: 8px;font-size: 18px;">Readed</td>
                 {% else %}
