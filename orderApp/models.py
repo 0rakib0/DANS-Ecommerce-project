@@ -33,7 +33,7 @@ class Cart(models.Model):
 
 class Order(models.Model):
     orderItem = models.ManyToManyField(Cart)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='order')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_order')
     ordered = models.BooleanField(default=False)
     createdAt = models.DateTimeField(auto_now_add=True)
     paymentId = models.CharField(max_length=264, blank=True, null=True)

@@ -3,7 +3,7 @@
 {% block body %}
 
 
-<section class="is-title-bar">
+  <section class="is-title-bar">
     <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
       <ul>
         <li>Admin</li>
@@ -48,7 +48,7 @@
                 <td data-label="City">{{i.createdAt|date:"d M Y"}}</td>
                 <td class="actions-cell">
                     <div class="buttons right nowrap">
-                    <a href="" class="button small green --jb-modal"  data-target="sample-modal-2" type="button">
+                    <a href="{% url 'adminApp:view_order_info' id=i.id %}" class="button small green --jb-modal"  data-target="sample-modal-2" type="button">
                         <span class="icon"><i class="mdi mdi-eye"></i></span>
                     </a>
                     <a href="{% url 'adminApp:delete_order' id=i.id %}" class="button small red --jb-modal" data-target="sample-modal" type="button">

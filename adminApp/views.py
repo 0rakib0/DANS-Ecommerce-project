@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from homeApp.models import Massage
 from django.contrib import messages
 from orderApp.models import Order
+from paymentApp.models import Billing_Address
 # Create your views here.
 @login_required
 def Dashbord(request):
@@ -293,4 +294,36 @@ def Delete_order(request, id):
     except:
         messages.success(request, 'Order Not Deleted!')
         return redirect('adminApp:all_order_list')
+    
+def viewOrderInfo(request, id):
+    order = Order.objects.get(id=id)
+    order_user = order.user
+    print('-----------------------------')
+    print(order_user)
+    billing_info = Billing_Address.objects.get(user=order_user)
+    context = {
+        'order':order,
+        'billing_info':billing_info
+    }
+    return render(request, 'AdminDashbord/view-order-info.html', context)
+
+def DeliveryProduct(request, id):
+    order = Order.objects.get(id=id)
+    if order:
+        order.delivered_status = True
+        order.save()
+        messages.success(request, 'Order Delivered!')
+        return redirect('adminApp:deliver_order')
+    else:
+        messages.success(request, 'Order Not Delivered!')
+        return redirect('adminApp:pending_order')
+
+
+def AllSellReport(request):
+    orders = Order.objects.filter(ordered=True)
+    print(orders)
+    context = {
+        'orders':orders
+    }
+    return render(request, 'AdminDashbord/orders_report.html', context)
    

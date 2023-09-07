@@ -1,0 +1,122 @@
+{% extends "AdminDashbord/base.html" %}
+
+{% block body %}
+
+{% include 'tailwind.html' %} 
+<section class="is-title-bar">
+    <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+      <ul>
+        <li>Admin</li>
+        <li>Order Information</li>
+      </ul>
+    </div>
+    <div style="text-align: center;font-size:25px;color:rgb(72, 98, 72)">{% include "includs/msg.html" %}</div>
+  </section>
+
+  <section>
+    <div class="flex flex-col md:flex-row">
+        <!-- product and cost info -->
+        <div>
+            <section class="section main-section">
+                <div class="card has-table">
+                  <header class="card-header">
+                    <p class="card-header-title">
+                      Products
+                    </p>
+                    <p class="card-header-title">
+                      Order ID: {{order.orderId}}
+                    </p>
+                    <a href="#" class="card-header-icon">
+                      <span class="icon"><i class="mdi mdi-reload"></i></span>
+                    </a>
+                  </header>
+                  <div class="card-content">
+                    <table>
+                      <thead>
+                      <tr>
+                        <th class="image-cell text-center border border-gray-600"></th>
+                        <th class="text-center border border-gray-600">Product</th>
+                        <th class="text-center border border-gray-600">Quantity</th>
+                        <th class="text-center border border-gray-600">Color</th>
+                        <th class="text-center border border-gray-600">Size</th>
+                        <th></th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      {% for i in order.orderItem.all %}
+                      <tr >
+                          <td class="image-cell border border-gray-400">
+                              <div class="image">
+                              <img src="/media/{{i.item.image}}" class="rounded-full">
+                              </div>
+                          </td>
+                          <td class="border border-gray-400 text-center" data-label="Product"><a href="{% url 'shopApp:productDetails' slug=i.item.slug %}" target="_blank">{{i.item.product_name}} ({{i.item.product_code}})</a></td>
+                          <td class="border border-gray-400 text-center" data-label="Quantity">{{i.quantity}}</td>
+                          <td class="border border-gray-400 text-center" data-label="Color" style="text-align:center;">{{i.color}}</td>
+                          <td class="border border-gray-400 text-center" data-label="Size" style="text-align:center;">{{i.size}}</td>
+                      </tr> 
+                      {% endfor %}           
+                      </tbody>
+                    </table>
+                    <p class="text-xl mt-6 font-samibold">Total payment: {{order.getTotals}}&#2547; <span class="badge badge-success">paid</span></p>
+                    
+                  </div>
+                </div>
+              </section>
+        </div>
+        <!-- customar and billing address info -->
+        <div class="flex-1">
+          <h2 class="text-2xl font-bold mb-2">Billing Information</h2>
+          <hr class="">
+          <div class="mt-2 md:mr-6">
+            <div class="overflow-x-auto">
+              <table class="table">
+                
+                <tbody>
+                  <tr>
+                    <th class="text-start border border-gray-400">Full Name:</th>
+                    <td class="text-start border border-gray-400" style="border-bottom: 1px solid rgb(187, 187, 187);">{{order.user.profile.full_name}}</td>
+                  </tr>
+                  <tr>
+                    <th class="text-start border border-gray-400">Client Email:</th>
+                    <td class="text-start border border-gray-400" style="border-bottom: 1px solid rgb(187, 187, 187);">{{order.user.email}}</td>
+                  </tr>
+                  <tr>
+                    <th class="text-start border border-gray-400">Address: </th>
+                    <td class="text-start border border-gray-400" style="border-bottom: 1px solid rgb(187, 187, 187);">{{billing_info.address}}</td>
+                  </tr>
+                  <tr>
+                    <th class="text-start border border-gray-400">Phone Number:</th>
+                    <td class="text-start border border-gray-400" style="border-bottom: 1px solid rgb(187, 187, 187);">{{billing_info.phone}}</td>
+                  </tr>
+                  <tr>
+                    <th class="text-start border border-gray-400">Country: </th>
+                    <td class="text-start border border-gray-400" style="border-bottom: 1px solid rgb(187, 187, 187);">{{billing_info.country}}</td>
+                  </tr>
+                  <tr>
+                    <th class="text-start border border-gray-400">City: </th>
+                    <td class="text-start border border-gray-400" style="border-bottom: 1px solid rgb(187, 187, 187);">{{billing_info.city}}</td>
+                  </tr>
+                  <tr>
+                    <th class="text-start border border-gray-400">Zip Code:</th>
+                    <td class="text-start border border-gray-400" style="border-bottom: 1px solid rgb(187, 187, 187);">{{billing_info.zipeCode}}</td>
+                  </tr>                
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+    </div>
+  </section>
+
+  <div class="mx-6 mb-12">
+    {% if order.delivered_status %}
+    <button class="btn btn-info py-3 px-8 rounded-xl mt-12 text-xl text-white">Product Already Delivered</button>
+    {% else %}
+    <a href="{% url 'adminApp:product_delivered' id=order.id %}" class="btn btn-success py-3 px-8 rounded-xl mt-12 text-xl text-white">Delivery Product</a>
+    {% endif %}
+  </div>
+
+
+
+{% endblock %}

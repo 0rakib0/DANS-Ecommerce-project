@@ -39,7 +39,7 @@ def addToCard(request, slug):
             return redirect('homeApp:home')
         else:
             print('---------2222---------')
-            print(order_item)
+            print(order_item.availableSize)
             order_item[0].availableSize = size
             order_item[0].color_name = color
             order.orderItem.add(order_item[0])

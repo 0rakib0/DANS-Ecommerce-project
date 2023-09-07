@@ -4,7 +4,7 @@ from orderApp.models import Order
 # Create your models here.\
 
 class Billing_Address(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='billing_address')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ba')
     address = models.CharField(max_length=20, null=True, blank=True)
     zipeCode = models.CharField(max_length=150, null=True, blank=True)
     city = models.CharField(max_length=150, null=True, blank=True)

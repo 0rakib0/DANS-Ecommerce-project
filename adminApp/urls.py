@@ -30,4 +30,8 @@ urlpatterns = [
     path('delivered-order/', views.deliveryOrder, name='deliver_order'),
     path('pending-order/', views.pendingOrder, name='pending_order'),
     path('order-delete/<id>/', views.Delete_order, name='delete_order'),
+    path('view-order-information/<id>/', views.viewOrderInfo, name='view_order_info'),
+    path('delivered-order/<id>/',views.DeliveryProduct, name='product_delivered'),
+    # ------------- sell report------------------------------
+    path('all-sell-report/', views.AllSellReport, name='all_sell_report'),
 ]
