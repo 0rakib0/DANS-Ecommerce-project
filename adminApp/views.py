@@ -3,13 +3,30 @@ from shopApp.models import Product, Category, ColorImage, Banner1, Banner2
 from django.contrib.auth.decorators import login_required
 from homeApp.models import Massage
 from django.contrib import messages
-from orderApp.models import Order
+from orderApp.models import Order, Cart
+from Accounts.models import User
 from paymentApp.models import Billing_Address
+from datetime import timedelta, date
 # Create your views here.
 @login_required
 def Dashbord(request):
+    revenue = 0
+    todayRevenue = 0
+    client = User.objects.filter(user_type='Customer').count
+    card = Cart.objects.filter(purchase = True)
+    today = date.today()
+    order = Order.objects.filter(createdAt=today)
+    for i in order:
+        total = i.getTotals()
+        todayRevenue = todayRevenue + float(total)
+    for i in card:
+        total = i.get_total()
+        revenue = revenue + float(total)
     context = {
-        
+        "client":client,
+        'revenue':revenue,
+        'order':order,
+        'todayRevenue':todayRevenue
     }
     return render(request, 'AdminDashbord/dashbord.html', context)
 
@@ -263,8 +280,6 @@ def msgDelete(request, id):
 # ===================> view Customars Orders <==================
 def orderList(request):
     all_orders = Order.objects.filter(ordered=True)
-    print('-----------------------------')
-    print(all_orders)
     context={
         'all_orders':all_orders,
     }
@@ -298,8 +313,6 @@ def Delete_order(request, id):
 def viewOrderInfo(request, id):
     order = Order.objects.get(id=id)
     order_user = order.user
-    print('-----------------------------')
-    print(order_user)
     billing_info = Billing_Address.objects.get(user=order_user)
     context = {
         'order':order,
@@ -320,10 +333,15 @@ def DeliveryProduct(request, id):
 
 
 def AllSellReport(request):
+    revenue = 0
     orders = Order.objects.filter(ordered=True)
-    print(orders)
+    card = Cart.objects.filter(purchase = True)
+    for i in card:
+        total = i.get_total()
+        revenue = revenue + float(total)
     context = {
-        'orders':orders
+        'orders':orders,
+        'revenue':revenue
     }
     return render(request, 'AdminDashbord/orders_report.html', context)
    

@@ -36,12 +36,19 @@ class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_order')
     ordered = models.BooleanField(default=False)
     createdAt = models.DateTimeField(auto_now_add=True)
+    order_date = models.DateField(auto_now=True)
     paymentId = models.CharField(max_length=264, blank=True, null=True)
     delivered_status = models.BooleanField(default=False)
     orderId = models.CharField(max_length=200, blank=True, null=True)
 
     def __str__(self):
         return str(self.user.email)+ "'s order"
+    
+    def save(self, *args, **kwargs):
+        # Extract only the date part from createdAt field
+        if self.createdAt:
+            self.createdAt = self.createdAt.date()
+        super(Order, self).save(*args, **kwargs)
     
 
     def getTotals(self):

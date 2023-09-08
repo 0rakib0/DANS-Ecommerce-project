@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
-from .models import Billing_Address
+from shopApp.models import Product
 from django.urls import reverse
 from orderApp.models import Order, Cart
 from django.contrib import messages
@@ -114,6 +114,11 @@ def Purchase(request, val_id, tran_id):
     order.save()
     cart_item = Cart.objects.filter(user=request.user, purchase=False)
     for item in cart_item:
+        productId = item.item.id
+        product = Product.objects.get(id=productId)
+        quantity = item.quantity
+        product.product_quintity = product.product_quintity - quantity
+        product.save()
         item.purchase = True
         item.save()
     return HttpResponseRedirect(reverse("homeApp:home"))

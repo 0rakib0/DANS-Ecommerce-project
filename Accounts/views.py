@@ -108,3 +108,16 @@ def User_Profile(request):
         return render(request, 'accountApp/admin_profile.html', context)
     else:
         return render(request, 'accountApp/profile.html', context)
+    
+def chnagePassword(request):
+    user_email = request.user.email
+    if request.method == 'POST':
+        old_password = request.POST.get('old_password')
+        new_pass1 = request.POST.get('new_pass1')
+        new_pass2 = request.POST.get('new_pass2')
+        if new_pass1 != new_pass2:
+            return redirect('accounts:profile')
+        
+        user = authenticate(username=user_email, password=old_password)
+        if user is not None:
+            pass

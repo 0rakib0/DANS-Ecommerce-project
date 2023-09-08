@@ -12,6 +12,7 @@ from shopApp.models import Product
 
 @login_required
 def addToCard(request, slug):
+    product = Product.objects.get(slug=slug)
     if request.method == 'POST':
         size = request.POST.get('size')
         color = request.POST.get('color')
@@ -22,37 +23,42 @@ def addToCard(request, slug):
         if size not in available_size:
             messages.success(request, 'please select size from available size')
             return redirect(reverse('shopApp:productDetails', kwargs={'slug': slug}))
+        if int(product.product_quintity) < int(quantity):
+            messages.success(request, 'Yout try to add over quantity product!')
+            return redirect(reverse('shopApp:productDetails', kwargs={'slug': slug}))
         
     
     item = get_object_or_404(Product, slug=slug)
     order_item = Cart.objects.get_or_create(item=item, user=request.user, purchase=False)
     order_qs = Order.objects.filter(user=request.user, ordered=False)
-    if order_qs.exists():
-        order = order_qs[0]
-        if order.orderItem.filter(item=item).exists():
-            print('---------11----------------')
-            print(order_item[0])
-            
-            order_item[0].quantity +=1
-            order_item[0].save()
-            messages.success(request, 'Item Quintity Is update!')
-            return redirect('homeApp:home')
+    if product.product_quintity > 0:
+        if order_qs.exists():
+            order = order_qs[0]
+            if order.orderItem.filter(item=item).exists():
+                print('---------11----------------')
+                print(order_item[0])
+                
+                order_item[0].quantity +=1
+                order_item[0].save()
+                messages.success(request, 'Item Quintity Is update!')
+                return redirect('homeApp:home')
+            else:
+                order_item[0].availableSize = size
+                order_item[0].color_name = color
+                order.orderItem.add(order_item[0])
+                order_item[0].save()
+                messages.success(request, 'Item added to your card!')
+                return redirect('homeApp:home')
         else:
-            print('---------2222---------')
-            print(order_item.availableSize)
-            order_item[0].availableSize = size
-            order_item[0].color_name = color
+            print('---------3333---------')
+            order = Order(user=request.user)
+            order.save()
             order.orderItem.add(order_item[0])
-            order_item[0].save()
             messages.success(request, 'Item added to your card!')
             return redirect('homeApp:home')
     else:
-        print('---------3333---------')
-        order = Order(user=request.user)
-        order.save()
-        order.orderItem.add(order_item[0])
-        messages.success(request, 'Item added to your card!')
-        return redirect('homeApp:home')
+        messages.success(request, 'This Product is Out Of Stock')
+        return redirect(reverse('shopApp:productDetails', kwargs={'slug': slug}))
 @login_required
 def cardView(request):
     carts = Cart.objects.filter(user=request.user, purchase=False)

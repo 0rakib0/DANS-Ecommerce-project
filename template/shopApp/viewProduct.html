@@ -10,12 +10,19 @@
       </div>
       <div class="right">
         <span>Home/{{singProduct.product_name}}</span>
+        
         <h1>{{singProduct.roduct_title}}</h1>
+        <p>{{singProduct.product_quintity}} items in Stock</p>
         {% if singProduct.dic_price == 0 %}
             <div class="price" style="margin-right: 10px;">{{singProduct.main_price}}&#2547;</div>
         {% else %}
             <div class="price" style="margin-right: 10px;">{{singProduct.dic_price}}&#2547;</div>
             <div class="price"><del>{{singProduct.main_price}}&#2547;</del></div>
+        {% endif %}
+        {% if singProduct.product_quintity < 1 %}
+        <div class="price" style="margin-left:2rem;color:#be2e02">Stock Out</div>
+        {% elif singProduct.product_quintity < 5 %}
+        <div class="price" style="margin-left:2rem;color:#be2e02">Limited Stock</div>
         {% endif %}
         <form method="POST" action="{% url 'orderApp:add_to_card' slug=singProduct.slug %}">
           {% csrf_token %}
