@@ -4,7 +4,7 @@
         <h2>EXCELLENT SUPPORT</h2>
         <p>We love our customers and they can reach us any time
           of day we will be at your service 24/7</p>
-        <a href class="btn btn-1">Contact</a>
+        <a href="{% url 'homeApp:contact_us' %}" class="btn btn-1">Contact</a>
       </div>
       <div class="col">
         <form action>
@@ -22,17 +22,17 @@
     <div class="row">
       <div class="col d-flex">
         <h4>INFORMATION</h4>
-        <a href>About us</a>
-        <a href>Contact Us</a>
-        <a href>Term & Conditions</a>
+        <a href="{% url 'homeApp:about_us' %}">About us</a>
+        <a href="{% url 'homeApp:contact_us' %}">Contact Us</a>
+        <a href="{% url 'homeApp:tearm' %}">Term & Conditions</a>
         <a href>Shipping Guide</a>
       </div>
       <div class="col d-flex">
         <h4>USEFUL LINK</h4>
-        <a href>Online Store</a>
-        <a href>Customer Services</a>
-        <a href>Promotion</a>
-        <a href>Top Brands</a>
+        <a href="{% url 'shopApp:products' %}">Online Store</a>
+        <a href="{% url 'homeApp:contact_us' %}">Customer Services</a>
+        <a href="{% url 'shopApp:products' %}"">Promotion</a>
+        <a href="{% url 'shopApp:products' %}"">Top Brands</a>
       </div>
       <div class="col d-flex">
         <span><i class='bx bxl-facebook-square'></i></span>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load cart_tag %}
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -162,12 +163,12 @@
               {% endif %}
 
               <div class="icon">
-                <i class="bx bx-heart"></i>
-                <span class="d-flex">0</span>
+                <a href="{% url 'shopApp:wishList' %}"><i class="bx bx-heart"></i></a>
+                <span class="d-flex">{{request.user | wishListTotal}}</span>
               </div>
               <a href="{% url 'orderApp:card_view' %}" class="icon">
                 <i class="bx bx-cart"></i>
-                <span class="d-flex">0</span>
+                <span class="d-flex">{{request.user | cart_total}}</span>
               </a>
             </li>
           </ul>
@@ -184,11 +185,11 @@
             {% endif %}
             <div class="icon">
               <a href="{% url 'shopApp:wishList' %}"><i class="bx bx-heart"></i></a>
-              <span class="d-flex">0</span>
+              <span class="d-flex">{{request.user | wishListTotal}}</span>
             </div>
             <a href="{% url 'orderApp:card_view' %}" class="icon">
               <i class="bx bx-cart"></i>
-              <span class="d-flex">0</span>
+              <span class="d-flex">{{request.user | cart_total}}</span>
             </a>
           </div>
 

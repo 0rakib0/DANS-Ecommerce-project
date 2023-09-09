@@ -115,9 +115,43 @@ def chnagePassword(request):
         old_password = request.POST.get('old_password')
         new_pass1 = request.POST.get('new_pass1')
         new_pass2 = request.POST.get('new_pass2')
-        if new_pass1 != new_pass2:
-            return redirect('accounts:profile')
         
         user = authenticate(username=user_email, password=old_password)
         if user is not None:
-            pass
+            if new_pass1 != new_pass2:
+                messages.success(request, 'new password and confirm new password not same!')
+                return redirect('accounts:profile')
+            else:
+                user.set_password(new_pass1)
+                user.save()
+                messages.success(request, 'Password Changed.Please Login!')
+                return redirect('accounts:logout')
+        else:
+            messages.success(request, 'Old Password Not Correct!')
+            return redirect('accounts:profile')
+    else:
+        messages.success(request, 'Action not complate. Somethink wrong!')
+        return redirect('accounts:profile')
+    
+    
+def forgetPassword(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        username = request.POST.get('username')
+        newPassword = request.POST.get('newPassword')
+        user = User.objects.filter(email=email).first()
+        if user:
+            user_name = user.profile.username
+            if user_name == username:
+                user.set_password(newPassword)
+                user.save()
+                messages.success(request, 'New Password Set. Try to Login!')
+                return redirect('accounts:login_form')
+            else:
+                messages.success(request, 'User Not Found with this username!')
+                return redirect('accounts:login_form')
+        else:
+            messages.success(request, 'User Not Found!')
+            return redirect('accounts:login_form')
+        
+    return render(request, 'accountApp/forgetPass.html')

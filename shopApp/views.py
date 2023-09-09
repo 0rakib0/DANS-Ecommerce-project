@@ -24,13 +24,16 @@ def Products(request):
 
 def ProductDetails(request, slug):
     singProduct = Product.objects.get(slug=slug)
-    categoryId = singProduct.product_category.id
-    reletedProduct = Product.objects.filter(product_category=categoryId)[:4]
-    context = {
-        'singProduct':singProduct,
-        'reletedProduct':reletedProduct
-    }
-    return render(request, 'shopApp/viewProduct.html', context)
+    if singProduct:
+        categoryId = singProduct.product_category.id
+        reletedProduct = Product.objects.filter(product_category=categoryId)[:4]
+        context = {
+            'singProduct':singProduct,
+            'reletedProduct':reletedProduct
+        }
+        return render(request, 'shopApp/viewProduct.html', context)
+    else:
+        messages.success(request, 'This product is not available ')
 @login_required
 def ViewWishList(request):
     wish_List = WishList.objects.filter(user=request.user)

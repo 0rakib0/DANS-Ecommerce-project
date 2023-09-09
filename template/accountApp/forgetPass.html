@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="container">
+    <div class="login-form">
+        <div style="color:#6cbe02;font-size:20px;margin-bottom:10px;">
+            {% include 'includs/msg.html' %}
+        </div>
+      <form method="POST">
+        {% csrf_token %}
+        <h3>Please give correct information for set New Password</h3>
+        {% include 'includs/msg.html' %}
+        <label for="email">Email</label>
+        <input type="text" placeholder="Enter Email" name="email" required />
+
+        <label for="psw">User Name</label>
+        <input
+          type="text"
+          placeholder="Enter username"
+          name="username"
+          required
+        />
+
+        <label for="psw-repeat">New Password</label>
+        <input
+          type="password"
+          placeholder="New Password"
+          name="newPassword"
+          required
+        />
+        <div class="buttons">
+          <button type="submit" class="signupbtn">Forget Password</button>
+        </div>
+      </form>
+    </div>
+</div>
+{% endblock body %}
