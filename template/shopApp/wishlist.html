@@ -35,7 +35,7 @@
           <td>Out Of Stock</td>
           {% endif %}
           <td>
-              <a href="#" style="background-color: #6cbe02;padding:10px;color:white;">Add To Card</a>
+              <a href="{% url 'shopApp:productDetails' slug=i.product.slug %}" style="background-color: #6cbe02;padding:10px;color:white;">View Product</a>
           </td>
         </tr>
       {% endfor %}

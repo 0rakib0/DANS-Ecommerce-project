@@ -23,7 +23,9 @@
             <a href="{% url 'shopApp:productDetails' slug=i.slug %}" class="product-thumb">
               <img src="/media/{{i.image}}" alt="" />
             </a>
-            <span class="discount">40%</span>
+            {% if i.is_newarival %}
+            <span class="discount">New</span>
+            {% endif %}
           </div>
           <div class="product-info">
             <span>{{i.product_code}}</span>
@@ -39,8 +41,6 @@
           </div>
           <ul class="icons">
             <li><a href="{% url 'shopApp:addWishList' slug=i.slug %}"><i class="bx bx-heart"></i></a></li>
-            <li><i class="bx bx-search"></i></li>
-            <li><i class="bx bx-cart"></i></li>
           </ul>
         </div>
       {% endfor %}
@@ -51,7 +51,9 @@
             <a href="{% url 'shopApp:productDetails' slug=i.slug %}" class="product-thumb">
               <img src="/media/{{i.image}}" alt="" />
             </a>
-            <span class="discount">40%</span>
+            {% if i.is_newarival %}
+            <span class="discount">New</span>
+            {% endif %}
           </div>
           <div class="product-info">
             <span>{{i.product_code}}</span>
@@ -67,18 +69,17 @@
           </div>
           <ul class="icons">
             <li><a href="{% url 'shopApp:addWishList' slug=i.slug %}"><i class="bx bx-heart"></i></a></li>
-            <li><i class="bx bx-search"></i></li>
-            <li><i class="bx bx-cart"></i></li>
+            
           </ul>
         </div>
       {% endfor %}
       {% endif %}
     </div>
   </section>
-  <section class="pagination">
+  <!-- <section class="pagination">
     <div class="container">
       <span>1</span> <span>2</span> <span>3</span> <span>4</span>
       <span><i class="bx bx-right-arrow-alt"></i></span>
     </div>
-  </section>
+  </section> -->
 {% endblock %}

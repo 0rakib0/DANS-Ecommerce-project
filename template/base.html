@@ -164,11 +164,11 @@
 
               <div class="icon">
                 <a href="{% url 'shopApp:wishList' %}"><i class="bx bx-heart"></i></a>
-                <span class="d-flex">{{request.user | wishListTotal}}</span>
+                <span class="d-flex">0</span>
               </div>
               <a href="{% url 'orderApp:card_view' %}" class="icon">
                 <i class="bx bx-cart"></i>
-                <span class="d-flex">{{request.user | cart_total}}</span>
+                <span class="d-flex">0</span>
               </a>
             </li>
           </ul>
@@ -178,11 +178,6 @@
             <a href="{% url 'accounts:profile' %}" class="icon">
               <i class="bx bx-user"></i>
             </a>
-            {% else %}
-            <a href="{% url 'accounts:login_form' %}" class="icon">
-              <i class="bx bx-user"></i>
-            </a>
-            {% endif %}
             <div class="icon">
               <a href="{% url 'shopApp:wishList' %}"><i class="bx bx-heart"></i></a>
               <span class="d-flex">{{request.user | wishListTotal}}</span>
@@ -191,8 +186,21 @@
               <i class="bx bx-cart"></i>
               <span class="d-flex">{{request.user | cart_total}}</span>
             </a>
-          </div>
-
+            </div>
+            {% else %}
+            <a href="{% url 'accounts:login_form' %}" class="icon">
+              <i class="bx bx-user"></i>
+            </a>
+            <div class="icon">
+              <a href="{% url 'shopApp:wishList' %}"><i class="bx bx-heart"></i></a>
+              <span class="d-flex">0</span>
+            </div>
+            <a href="{% url 'orderApp:card_view' %}" class="icon">
+              <i class="bx bx-cart"></i>
+              <span class="d-flex">0</span>
+            </a>
+            </div>
+            {% endif %}
           <div class="hamburger">
             <i class="bx bx-menu-alt-left"></i>
           </div>

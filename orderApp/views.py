@@ -29,31 +29,34 @@ def addToCard(request, slug):
         
     
     item = get_object_or_404(Product, slug=slug)
-    order_item = Cart.objects.get_or_create(item=item, user=request.user, purchase=False)
+    order_item, created  = Cart.objects.get_or_create(item=item, user=request.user, purchase=False)
     order_qs = Order.objects.filter(user=request.user, ordered=False)
+    
     if product.product_quintity > 0:
         if order_qs.exists():
             order = order_qs[0]
             if order.orderItem.filter(item=item).exists():
-                print('---------11----------------')
-                print(order_item[0])
+                messages.success(request, 'This Item is already added to your Card.you can increase you item quantity')
+                return redirect('orderApp:card_view')
                 
-                order_item[0].quantity +=1
-                order_item[0].save()
-                messages.success(request, 'Item Quintity Is update!')
-                return redirect('homeApp:home')
             else:
-                order_item[0].availableSize = size
-                order_item[0].color_name = color
-                order.orderItem.add(order_item[0])
-                order_item[0].save()
+                order_item.color = color
+                order_item.size = size
+                order_item.quantity = quantity
+                order_item.save()
+                order.orderItem.add(order_item)
+                order_item.save()
                 messages.success(request, 'Item added to your card!')
                 return redirect('homeApp:home')
         else:
-            print('---------3333---------')
+            order_item.color = color
+            order_item.size = size
+            order_item.quantity = quantity
+            order_item.save()
             order = Order(user=request.user)
             order.save()
-            order.orderItem.add(order_item[0])
+            order.orderItem.add(order_item)
+            print(order.orderItem)
             messages.success(request, 'Item added to your card!')
             return redirect('homeApp:home')
     else:
